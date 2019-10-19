@@ -14,7 +14,7 @@ services:
     image: mysql:8
     volumes:
       - "./db/mysql:/var/lib/mysql:rw"
-      - "./configs/my.cnf:/etc/mysql/my.cnf:rw"
+      - "./docker/configs/mysql/my.cnf:/etc/mysql/my.cnf:rw"
     environment:
       - MYSQL_ROOT_PASSWORD=123
   pma:
