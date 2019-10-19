@@ -11,45 +11,11 @@ class AutoLoader
 {
     protected const PHP_EXTENSION = 'php';
     /**
-     * Свойтсво содержит путь до вендора.
-     *
-     * @var string|null
-     */
-    protected $vendorDirectoryPath;
-    /**
      * Свойтсво хранит карту пространство имен => директория.
      *
      * @var array
      */
     protected $namespaceMap = [];
-
-    /**
-     * Метод задает путь до вендора.
-     *
-     * @param string $value Новое значение.
-     *
-     * @return static
-     */
-    public function setVendorDirectoryPath(string $value): self
-    {
-        $this->vendorDirectoryPath = $value;
-
-        return $this;
-    }
-
-    /**
-     * Метод возвращает путь до вендора.
-     *
-     * @return string
-     */
-    public function getVendorDirectoryPath(): string
-    {
-        if (null === $this->vendorDirectoryPath) {
-            $this->vendorDirectoryPath = dirname(__FILE__);
-        }
-
-        return $this->vendorDirectoryPath;
-    }
 
     /**
      * Метод задает карту пространство имен => директория.
