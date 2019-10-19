@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  apache:
+    image: php:7.3-apache
+    volumes:
+      - './www/:/var/www/html:rw'
+      - './:/var/www:rw'
+    ports:
+      - "0.0.0.0::8001:80"
+    depends_on:
+      - db
+  db:
+    image: mysql:8
+    volumes:
+      - "./db/mysql:/var/lib/mysql:rw"
+      - "./configs/my.cnf:/etc/mysql/my.cnf:rw"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+  pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=db
+    ports:
+      - '0.0.0.0:8002:80'
+    depends_on:
+      - db
