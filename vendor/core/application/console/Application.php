@@ -36,6 +36,33 @@ class Application implements IApplication
     }
 
     /**
+     * Метод исполнения заветных желаний.
+     *
+     * @return void
+     */
+    public function run(): void
+    {
+        $request = $this->getRequest();
+
+        $route     = $request->getRoute();
+        $paramList = $request->getParamList();
+
+        var_dump($route, $paramList);
+        die;
+    }
+
+    /**
+     * Метод возвращает компонент запросов.
+     *
+     * @return IRequest
+     */
+    public function getRequest(): IRequest
+    {
+        // @todo: хранить объект в статике.
+        return $this->getFactory()->getRequest();
+    }
+
+    /**
      * Метод возвращает фабрику.
      *
      * @return IFactory
@@ -47,28 +74,5 @@ class Application implements IApplication
         }
 
         return $this->factory;
-    }
-
-    /**
-     * Метод исполнения заветных желаний.
-     *
-     * @return void
-     */
-    public function run(): void
-    {
-        $request = $this->getRequest();
-
-        var_dump($request);
-        die;
-    }
-
-    /**
-     * Метод возвращает компонент запросов.
-     *
-     * @return IRequest
-     */
-    public function getRequest(): IRequest
-    {
-        return $this->getFactory()->getRequest();
     }
 }

@@ -70,10 +70,6 @@ class Factory implements IFactory
         unset($config[static::CLASS_KEY]);
         $reflection = new ReflectionClass($class);
 
-        if (empty($config)) {
-            $config = null;
-        }
-
         return $reflection->newInstance($config);
     }
 }
