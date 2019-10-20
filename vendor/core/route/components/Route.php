@@ -76,26 +76,6 @@ class Route extends BaseObject implements IRoute
         // @todo: Придумать что-нибудь получше.
         $controller = new $controllerClass();
 
-        $actionName = $this->prepareActionName($actionId);
-        if (! method_exists($controller, $actionName)) {
-            throw new Exception('Действие не найдено.');
-        }
-
         return $controller;
-    }
-
-    /**
-     * Метод возвращает название действия для контроллера.
-     * @ TODO: Обработать имена action-action => actionActionAction
-     *
-     * @param string $actionId Идентификатор действия.
-     *
-     * @return string
-     */
-    public function prepareActionName(string $actionId): string
-    {
-        $actionName = IController::ACTION_PREFIX . ucfirst($actionId);
-
-        return $actionName;
     }
 }

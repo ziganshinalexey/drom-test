@@ -6,6 +6,7 @@ namespace Core\request\components\console;
 
 use Core\BaseObject;
 use Core\request\interfaces\IRequest;
+use Exception;
 
 /**
  * Класс-компонент Request реализует методы парсинга входящего запроса.
@@ -19,11 +20,20 @@ class Request extends BaseObject implements IRequest
     /**
      * Метод возвращает путь обращения.
      *
-     * @return null|string
+     * @return string
+     *
+     * @throws Exception Если роутинг поломался.
      */
-    public function getRoute(): ?string
+    public function getRoute(): string
     {
-        return (string)array_shift($this->getServerArgumentList());
+        $serverArgumentList = $this->getServerArgumentList();
+        $route              = (string)array_shift($serverArgumentList);
+
+        if (! $route) {
+            throw new Exception('Роут не задан.');
+        }
+
+        return $route;
     }
 
     /**

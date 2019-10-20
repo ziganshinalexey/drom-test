@@ -10,4 +10,14 @@ namespace Core\controller\interfaces;
 interface IController
 {
     public const ACTION_PREFIX = 'action';
+
+    /**
+     * Метод  исполнения действия.
+     *
+     * @param string $route     Роут.
+     * @param array  $paramList Список параметров.
+     *
+     * @return void
+     */
+    public function runAction(string $route, array $paramList = []): void;
 }

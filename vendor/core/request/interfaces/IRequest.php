@@ -12,9 +12,9 @@ interface IRequest
     /**
      * Метод возвращает путь обращения.
      *
-     * @return null|string
+     * @return string
      */
-    public function getRoute(): ?string;
+    public function getRoute(): string;
 
     /**
      * Метод возвращает параметры запроса.
