@@ -7,6 +7,7 @@ namespace Core\application\factories;
 use Core\application\interfaces\IFactory;
 use Core\factory\Factory as BaseFactory;
 use Core\request\interfaces\IRequest;
+use Core\route\interfaces\IRoute;
 use Exception;
 
 /**
@@ -15,6 +16,7 @@ use Exception;
 class Factory extends BaseFactory implements IFactory
 {
     protected const REQUEST_COMPONENT = 'request';
+    protected const ROUTE_COMPONENT   = 'route';
 
     /**
      * Метод создает объект компонента запросов.
@@ -26,5 +28,17 @@ class Factory extends BaseFactory implements IFactory
     public function getRequest(): IRequest
     {
         return $this->getInstance(static::REQUEST_COMPONENT);
+    }
+
+    /**
+     * Метод создает объект компонента роутинга.
+     *
+     * @return IRoute
+     *
+     * @throws Exception Если отсутствует нужный ключ в конфигурации.
+     */
+    public function getRoute(): IRoute
+    {
+        return $this->getInstance(static::ROUTE_COMPONENT);
     }
 }

@@ -16,7 +16,7 @@ class BaseObject
      *
      * @return void
      */
-    public function __construct($config = [])
+    public function __construct(array $config = [])
     {
         foreach ($config as $attribute => $value) {
             $this->$attribute = $value;

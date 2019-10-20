@@ -7,19 +7,33 @@ namespace Core\application\console;
 use Core\application\factories\Factory;
 use Core\application\interfaces\IApplication;
 use Core\application\interfaces\IFactory;
+use Core\BaseObject;
 use Core\factory\traits\WithFactoryTrait;
 use Core\request\interfaces\IRequest;
+use Core\route\interfaces\IRoute;
 
 /**
  * Класс приложения.
  */
-class Application implements IApplication
+class Application extends BaseObject implements IApplication
 {
     use WithFactoryTrait {
         WithFactoryTrait::getFactory as getFactoryFromTrait;
     }
 
     protected const COMPONENT_KEY = 'componentList';
+    /**
+     * Свойство хранит объект компонента запроса.
+     *
+     * @var IRequest
+     */
+    protected $requestComponent;
+    /**
+     * Свойство хранит объект компонента роутинга.
+     *
+     * @var IRoute
+     */
+    protected $routeComponent;
 
     /**
      * Конструктор класса.
@@ -28,11 +42,13 @@ class Application implements IApplication
      *
      * @return void
      */
-    public function __construct(array $config)
+    public function __construct(array $config = [])
     {
         $factoryConfig = (array)$config[static::COMPONENT_KEY] ?? [];
-
+        unset($config[static::COMPONENT_KEY]);
         $this->getFactory()->setConfig($factoryConfig);
+
+        parent::__construct($config);
     }
 
     /**
@@ -47,7 +63,7 @@ class Application implements IApplication
         $route     = $request->getRoute();
         $paramList = $request->getParamList();
 
-        var_dump($route, $paramList);
+        var_dump($route, $paramList, $this->getRoute());
         die;
     }
 
@@ -58,8 +74,25 @@ class Application implements IApplication
      */
     public function getRequest(): IRequest
     {
-        // @todo: хранить объект в статике.
-        return $this->getFactory()->getRequest();
+        if (null === $this->requestComponent) {
+            $this->requestComponent = $this->getFactory()->getRequest();
+        }
+
+        return $this->requestComponent;
+    }
+
+    /**
+     * Метод возвращает компонент роутинга.
+     *
+     * @return IRoute
+     */
+    public function getRoute(): IRoute
+    {
+        if (null === $this->routeComponent) {
+            $this->routeComponent = $this->getFactory()->getRoute();
+        }
+
+        return $this->routeComponent;
     }
 
     /**
