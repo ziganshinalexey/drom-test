@@ -9,6 +9,7 @@ use Core\application\interfaces\IApplication;
 use Core\application\interfaces\IFactory;
 use Core\BaseObject;
 use Core\factory\traits\WithFactoryTrait;
+use Core\migration\interfaces\IMigration;
 use Core\request\interfaces\IRequest;
 use Core\route\interfaces\IRoute;
 
@@ -34,6 +35,12 @@ class Application extends BaseObject implements IApplication
      * @var IRoute
      */
     protected $routeComponent;
+    /**
+     * Свойство хранит объект компонента миграций.
+     *
+     * @var IMigration
+     */
+    protected $migrationComponent;
 
     /**
      * Конструктор класса.
@@ -97,6 +104,20 @@ class Application extends BaseObject implements IApplication
         }
 
         return $this->routeComponent;
+    }
+
+    /**
+     * Метод возвращает компонент миграций.
+     *
+     * @return IMigration
+     */
+    public function getMigration(): IMigration
+    {
+        if (null === $this->migrationComponent) {
+            $this->migrationComponent = $this->getFactory()->getMigration();
+        }
+
+        return $this->migrationComponent;
     }
 
     /**

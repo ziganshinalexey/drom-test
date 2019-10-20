@@ -3,6 +3,7 @@
 namespace Core\application\interfaces;
 
 use Core\factory\interfaces\IFactory as BaseIFactory;
+use Core\migration\interfaces\IMigration;
 use Core\request\interfaces\IRequest;
 use Core\route\interfaces\IRoute;
 
@@ -24,4 +25,11 @@ interface IFactory extends BaseIFactory
      * @return IRoute
      */
     public function getRoute(): IRoute;
+
+    /**
+     * Метод создает объект компонента миграций.
+     *
+     * @return IMigration
+     */
+    public function getMigration(): IMigration;
 }
