@@ -6,6 +6,7 @@ namespace Core\route\components;
 
 use Core\BaseObject;
 use Core\controller\interfaces\IController;
+use Core\Core;
 use Core\route\interfaces\IRoute;
 use Exception;
 
@@ -73,9 +74,7 @@ class Route extends BaseObject implements IRoute
             throw new Exception('Контроллер не найден.');
         }
 
-        // @todo: Придумать что-нибудь получше.
-        $controller = new $controllerClass();
-
-        return $controller;
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
+        return Core::createObject(['class' => $controllerClass]);
     }
 }

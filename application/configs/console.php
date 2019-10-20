@@ -28,5 +28,4 @@ return [
         ],
         'migrationPath' => dirname(__FILE__, 2) . '/migrations',
     ],
-
 ];
