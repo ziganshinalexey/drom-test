@@ -63,7 +63,8 @@ class Application extends BaseObject implements IApplication
         $route     = $request->getRoute();
         $paramList = $request->getParamList();
 
-        var_dump($route, $paramList, $this->getRoute());
+        $controller = $this->getRoute()->findController($route);
+        var_dump($controller);
         die;
     }
 
