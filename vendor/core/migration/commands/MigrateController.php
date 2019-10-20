@@ -22,8 +22,8 @@ class MigrateController extends Controller
      */
     public function actionUp(): void
     {
-        $migration = Core::getApplication()->getMigration();
-        var_dump($migration);
+        $operation = Core::getApplication()->getMigration()->up();
+        var_dump($operation);
         die;
     }
 
@@ -31,10 +31,13 @@ class MigrateController extends Controller
      * Метод реализует действие применения миграций.
      *
      * @return void
+     *
+     * @throws Exception Если объект приложения не задан.
      */
     public function actionDown(): void
     {
-        var_dump('actionDown');
+        $operation = Core::getApplication()->getMigration()->down();
+        var_dump($operation);
         die;
     }
 }

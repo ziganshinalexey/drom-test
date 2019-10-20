@@ -5,8 +5,11 @@ declare(strict_types = 1);
 use Core\application\console\Application;
 use Core\migration\commands\MigrateController;
 use Core\migration\components\Migration;
-use Core\migration\factories\Factory;
+use Core\migration\factories\Factory as MigrationFactory;
+use Core\migration\operations\DownOperation;
+use Core\migration\operations\UpOperation;
 use Core\request\components\console\Request;
+use Core\result\DataResult;
 use Core\route\components\Route;
 
 return [
@@ -23,8 +26,17 @@ return [
     'migration' => [
         'class'         => Migration::class,
         'factory'       => [
-            'class'  => Factory::class,
-            'config' => [],
+            'class'  => MigrationFactory::class,
+            'config' => [
+                MigrationFactory::DOWN_OPERATION => [
+                    'class'  => DownOperation::class,
+                    'result' => ['class' => DataResult::class],
+                ],
+                MigrationFactory::UP_OPERATION   => [
+                    'class'  => UpOperation::class,
+                    'result' => ['class' => DataResult::class],
+                ],
+            ],
         ],
         'migrationPath' => dirname(__FILE__, 2) . '/migrations',
     ],

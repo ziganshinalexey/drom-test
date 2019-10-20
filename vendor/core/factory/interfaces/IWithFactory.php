@@ -17,13 +17,4 @@ interface IWithFactory
      * @return static
      */
     public function setFactory(IFactory $value);
-
-    /**
-     * Метод задает класс фабрики.
-     *
-     * @param string $value Новое значение.
-     *
-     * @return static
-     */
-    public function setFactoryClass(string $value);
 }
