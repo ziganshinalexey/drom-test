@@ -9,7 +9,6 @@ use Core\migration\factories\Factory as MigrationFactory;
 use Core\migration\operations\DownOperation;
 use Core\migration\operations\UpOperation;
 use Core\request\components\console\Request;
-use Core\result\DataResult;
 use Core\route\components\Route;
 
 return [
@@ -28,14 +27,8 @@ return [
         'factory'       => [
             'class'  => MigrationFactory::class,
             'config' => [
-                MigrationFactory::DOWN_OPERATION => [
-                    'class'  => DownOperation::class,
-                    'result' => ['class' => DataResult::class],
-                ],
-                MigrationFactory::UP_OPERATION   => [
-                    'class'  => UpOperation::class,
-                    'result' => ['class' => DataResult::class],
-                ],
+                MigrationFactory::DOWN_OPERATION => ['class' => DownOperation::class],
+                MigrationFactory::UP_OPERATION   => ['class' => UpOperation::class],
             ],
         ],
         'migrationPath' => dirname(__FILE__, 2) . '/migrations',

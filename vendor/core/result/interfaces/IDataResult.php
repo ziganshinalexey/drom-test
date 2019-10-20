@@ -39,4 +39,11 @@ interface IDataResult
      * @return array
      */
     public function getErrorList(): array;
+
+    /**
+     * Метод возвращает признак отсутствия ошибок.
+     *
+     * @return bool
+     */
+    public function isSuccess(): bool;
 }

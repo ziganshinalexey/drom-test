@@ -22,9 +22,9 @@ class MigrateController extends Controller
      */
     public function actionUp(): void
     {
-        $operation = Core::getApplication()->getMigration()->up();
-        var_dump($operation);
-        die;
+        Core::getApplication()->getMigration()->up()->run();
+
+        echo 'Миграции успешно применены.' . PHP_EOL;
     }
 
     /**
@@ -36,8 +36,8 @@ class MigrateController extends Controller
      */
     public function actionDown(): void
     {
-        $operation = Core::getApplication()->getMigration()->down();
-        var_dump($operation);
-        die;
+        Core::getApplication()->getMigration()->down()->run();
+
+        echo 'Миграции успешно отменены.' . PHP_EOL;
     }
 }

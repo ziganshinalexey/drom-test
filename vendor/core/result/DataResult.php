@@ -8,7 +8,7 @@ use Core\result\interfaces\IDataResult;
 /**
  * Класс DataResult для всех результатов в виде массивов.
  */
-class DataResult extends BaseObject
+class DataResult extends BaseObject implements IDataResult
 {
     /**
      * Свойство содержит данные результата.
@@ -71,5 +71,15 @@ class DataResult extends BaseObject
     public function getErrorList(): array
     {
         return $this->errorList;
+    }
+
+    /**
+     * Метод возвращает признак отсутствия ошибок.
+     *
+     * @return bool
+     */
+    public function isSuccess(): bool
+    {
+        return empty($this->getErrorList());
     }
 }

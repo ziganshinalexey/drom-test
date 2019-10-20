@@ -4,12 +4,24 @@ declare(strict_types = 1);
 
 namespace Core\migration\interfaces\operations;
 
-use Core\result\interfaces\IWithDataResult;
-
 /**
  * Интерфейс IUpOperation объявляет методы операции.
  */
-interface IUpOperation extends IWithDataResult
+interface IUpOperation
 {
+    /**
+     * Метод исполнения операции.
+     *
+     * @return void
+     */
+    public function run(): void;
 
+    /**
+     * Метод задает путь до папки с миграциями.
+     *
+     * @param string $value Новое значение.
+     *
+     * @return IUpOperation
+     */
+    public function setMigrationPath(string $value): IUpOperation;
 }

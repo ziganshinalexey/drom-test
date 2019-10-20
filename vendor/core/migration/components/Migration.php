@@ -67,7 +67,10 @@ class Migration extends BaseObject implements IMigration
      */
     public function up(): IUpOperation
     {
-        return $this->getFactory()->getUpOperation();
+        $operation = $this->getFactory()->getUpOperation();
+        $operation->setMigrationPath($this->getMigrationPath());
+
+        return $operation;
     }
 
     /**
@@ -79,7 +82,9 @@ class Migration extends BaseObject implements IMigration
      */
     public function down(): IDownOperation
     {
-        return $this->getFactory()->getDownOperation();
+        $operation = $this->getFactory()->getDownOperation();
+
+        return $operation;
     }
 
     /**
