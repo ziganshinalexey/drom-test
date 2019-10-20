@@ -4,24 +4,18 @@ declare(strict_types = 1);
 
 namespace Core\application\console;
 
-use Core\application\factories\Factory;
 use Core\application\interfaces\IApplication;
-use Core\application\interfaces\IFactory;
 use Core\BaseObject;
-use Core\factory\traits\WithFactoryTrait;
 use Core\migration\interfaces\IMigration;
 use Core\request\interfaces\IRequest;
 use Core\route\interfaces\IRoute;
+use Exception;
 
 /**
  * Класс приложения.
  */
 class Application extends BaseObject implements IApplication
 {
-    use WithFactoryTrait {
-        WithFactoryTrait::getFactory as getFactoryFromTrait;
-    }
-
     protected const COMPONENT_KEY = 'componentList';
     /**
      * Свойство хранит объект компонента запроса.
@@ -43,25 +37,11 @@ class Application extends BaseObject implements IApplication
     protected $migrationComponent;
 
     /**
-     * Конструктор класса.
-     *
-     * @param array $config Конфигурация приложения.
-     *
-     * @return void
-     */
-    public function __construct(array $config = [])
-    {
-        $factoryConfig = (array)$config[static::COMPONENT_KEY] ?? [];
-        unset($config[static::COMPONENT_KEY]);
-        $this->getFactory()->setConfig($factoryConfig);
-
-        parent::__construct($config);
-    }
-
-    /**
      * Метод исполнения заветных желаний.
      *
      * @return void
+     *
+     * @throws Exception
      */
     public function run(): void
     {
@@ -81,12 +61,56 @@ class Application extends BaseObject implements IApplication
     /**
      * Метод возвращает компонент запросов.
      *
+     * @param IRequest $value
+     *
+     * @return void
+     *
+     * @throws Exception Если класс фабрики отсутствует.
+     */
+    public function setRequest(IRequest $value): void
+    {
+        $this->requestComponent = $value;
+    }
+
+    /**
+     * Метод возвращает компонент запросов.
+     *
+     * @param IRequest $value
+     *
+     * @return void
+     *
+     * @throws Exception Если класс фабрики отсутствует.
+     */
+    public function setRoute(IRoute $value): void
+    {
+        $this->routeComponent = $value;
+    }
+
+    /**
+     * Метод возвращает компонент запросов.
+     *
+     * @param IRequest $value
+     *
+     * @return void
+     *
+     * @throws Exception Если класс фабрики отсутствует.
+     */
+    public function setMigration(IMigration $value): void
+    {
+        $this->migrationComponent = $value;
+    }
+
+    /**
+     * Метод возвращает компонент запросов.
+     *
      * @return IRequest
+     *
+     * @throws Exception
      */
     public function getRequest(): IRequest
     {
         if (null === $this->requestComponent) {
-            $this->requestComponent = $this->getFactory()->getRequest();
+            throw new Exception('Компонент отсутствует.');
         }
 
         return $this->requestComponent;
@@ -96,11 +120,13 @@ class Application extends BaseObject implements IApplication
      * Метод возвращает компонент роутинга.
      *
      * @return IRoute
+     *
+     * @throws Exception
      */
     public function getRoute(): IRoute
     {
         if (null === $this->routeComponent) {
-            $this->routeComponent = $this->getFactory()->getRoute();
+            throw new Exception('Компонент отсутствует.');
         }
 
         return $this->routeComponent;
@@ -110,27 +136,15 @@ class Application extends BaseObject implements IApplication
      * Метод возвращает компонент миграций.
      *
      * @return IMigration
+     *
+     * @throws Exception
      */
     public function getMigration(): IMigration
     {
         if (null === $this->migrationComponent) {
-            $this->migrationComponent = $this->getFactory()->getMigration();
+            throw new Exception('Компонент отсутствует.');
         }
 
         return $this->migrationComponent;
-    }
-
-    /**
-     * Метод возвращает фабрику.
-     *
-     * @return IFactory
-     */
-    protected function getFactory(): IFactory
-    {
-        if (null === $this->factory) {
-            $this->factory = new Factory();
-        }
-
-        return $this->factory;
     }
 }

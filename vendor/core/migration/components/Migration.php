@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace Core\migration\components;
 
 use Core\BaseObject;
+use Core\factory\traits\WithFactoryTrait;
 use Core\migration\interfaces\IMigration;
+use Core\migration\interfaces\operations\IUpOperation;
 use Exception;
 
 /**
@@ -13,6 +15,10 @@ use Exception;
  */
 class Migration extends BaseObject implements IMigration
 {
+    use WithFactoryTrait {
+        WithFactoryTrait::getFactory as getFactoryFromTrait;
+    }
+
     /**
      * Свойство содержит путь до папки с миграциями.
      *
@@ -48,5 +54,25 @@ class Migration extends BaseObject implements IMigration
         }
 
         return $this->migrationPath;
+    }
+
+    /**
+     * Метод возвращает операцию применения миграций.
+     *
+     * @return IUpOperation
+     */
+    public function up(): IUpOperation
+    {
+        $this->getFactory();
+    }
+
+    /**
+     * Метод возвращает объект фабрики.
+     *
+     * @return IFactory
+     */
+    protected function getFactory(): IFactory
+    {
+        return $this->factory;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Core\application\interfaces;
 
-use Core\factory\interfaces\IWithFactory;
 use Core\migration\interfaces\IMigration;
 use Core\request\interfaces\IRequest;
 use Core\route\interfaces\IRoute;
@@ -10,8 +9,15 @@ use Core\route\interfaces\IRoute;
 /**
  * Интерфейс IApplication объявляет методы приложения.
  */
-interface IApplication extends IWithFactory
+interface IApplication
 {
+    /**
+     * Метод исполнения заветных желаний.
+     *
+     * @return void
+     */
+    public function run(): void;
+
     /**
      * Метод возвращает компонент запросов.
      *

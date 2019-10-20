@@ -22,8 +22,8 @@ class MigrateController extends Controller
      */
     public function actionUp(): void
     {
-        $mgiartion = Core::getApplication()->getMigration();
-        var_dump($mgiartion);
+        $migration = Core::getApplication()->getMigration();
+        var_dump($migration);
         die;
     }
 

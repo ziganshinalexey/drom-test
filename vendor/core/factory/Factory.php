@@ -4,14 +4,15 @@ declare(strict_types = 1);
 
 namespace Core\factory;
 
+use Core\BaseObject;
+use Core\Core;
 use Core\factory\interfaces\IFactory;
 use Exception;
-use ReflectionClass;
 
 /**
  * Класс Factory реализует фабрику.
  */
-class Factory implements IFactory
+class Factory extends BaseObject implements IFactory
 {
     protected const CLASS_KEY = 'class';
 
@@ -65,11 +66,6 @@ class Factory implements IFactory
             throw new Exception('Не указан класс.');
         }
 
-        $config = $this->getConfig()[$configKey];
-        $class  = $config[static::CLASS_KEY];
-        unset($config[static::CLASS_KEY]);
-        $reflection = new ReflectionClass($class);
-
-        return $reflection->newInstance($config);
+        return Core::createObject($this->getConfig()[$configKey]);
     }
 }

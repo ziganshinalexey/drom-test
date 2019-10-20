@@ -4,6 +4,8 @@ namespace Core;
 
 use Core\application\interfaces\IApplication;
 use Exception;
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * Здесь мог быть нормальный DI.
@@ -43,5 +45,52 @@ class Core
         }
 
         return static::$application;
+    }
+
+    /**
+     * Метод инициализации приложения.
+     *
+     * @param array $config Конфигурация приложения.
+     *
+     * @throws ReflectionException
+     */
+    public static function init($config = [])
+    {
+        static::$application = static::createObject($config);
+    }
+
+    /**
+     * Метод создания объекта (Почти как DI).
+     *
+     * @param array $config Конфигурация объекта.
+     *
+     * @return object
+     *
+     * @throws ReflectionException Если рефлекшены в плохом настроении.
+     * @throws Exception Если отсутствует название класса в конфигурации.
+     */
+    public static function createObject($config = [])
+    {
+        $argumentList = [];
+
+        $class = $config['class'] ?? null;
+        unset($config['class']);
+        if (! $class) {
+            throw new Exception('Название класса отсутствует.');
+        }
+
+        foreach ($config as $attribute => $value) {
+            $dependencyClass = $value['class'] ?? null;
+
+            if ($dependencyClass) {
+                $value = static::createObject($value);
+            }
+
+            $argumentList[$attribute] = $value;
+        }
+
+        $reflection = new ReflectionClass($class);
+
+        return $reflection->newInstance($argumentList);
     }
 }
