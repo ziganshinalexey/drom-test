@@ -53,7 +53,7 @@ class Factory implements IFactory
      *
      * @return mixed
      *
-     * @throws Exception Если отсутствует нудный ключ в конфигурации.
+     * @throws Exception Если отсутствует нужный ключ в конфигурации.
      */
     protected function getInstance(string $configKey)
     {

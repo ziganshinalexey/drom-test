@@ -4,15 +4,14 @@ declare(strict_types = 1);
 
 namespace Core\request\components\console;
 
+use Core\BaseObject;
 use Core\request\interfaces\IRequest;
 
 /**
  * Класс-компонент Request реализует методы парсинга входящего запроса.
  */
-class Request implements IRequest
+class Request extends BaseObject implements IRequest
 {
-    public $test = 123;
-
     /**
      * Метод возвращает путь обращения.
      *
