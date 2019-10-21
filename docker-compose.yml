@@ -2,9 +2,10 @@ version: '3.7'
 
 services:
   apache:
-    image: php:7.3-apache
+    build: ./docker/images/php-apache
+    image: custom-php:7.3-apache
     volumes:
-      - './www/:/var/www/html:rw'
+      - './docker/configs/apache2/000-default.conf:/etc/apache2/sites-available/000-default.conf:rw'
       - './:/var/www:rw'
     ports:
       - "0.0.0.0::8001:80"
