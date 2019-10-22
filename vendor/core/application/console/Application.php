@@ -6,6 +6,7 @@ namespace Core\application\console;
 
 use Core\application\interfaces\IApplication;
 use Core\BaseObject;
+use Core\db\interfaces\IDatabase;
 use Core\migration\interfaces\IMigration;
 use Core\request\interfaces\IRequest;
 use Core\route\interfaces\IRoute;
@@ -16,25 +17,30 @@ use Exception;
  */
 class Application extends BaseObject implements IApplication
 {
-    protected const COMPONENT_KEY = 'componentList';
     /**
      * Свойство хранит объект компонента запроса.
      *
-     * @var IRequest
+     * @var IRequest|null
      */
     protected $requestComponent;
     /**
      * Свойство хранит объект компонента роутинга.
      *
-     * @var IRoute
+     * @var IRoute|null
      */
     protected $routeComponent;
     /**
      * Свойство хранит объект компонента миграций.
      *
-     * @var IMigration
+     * @var IMigration|null
      */
     protected $migrationComponent;
+    /**
+     * Свойство хранит объект компонента БД.
+     *
+     * @var IDatabase|null
+     */
+    protected $dbComponent;
 
     /**
      * Метод исполнения заветных желаний.
@@ -58,7 +64,7 @@ class Application extends BaseObject implements IApplication
     /**
      * Метод возвращает компонент запросов.
      *
-     * @param IRequest $value
+     * @param IRequest $value Новое значение.
      *
      * @return void
      *
@@ -72,7 +78,7 @@ class Application extends BaseObject implements IApplication
     /**
      * Метод возвращает компонент запросов.
      *
-     * @param IRequest $value
+     * @param IRoute $value Новое значение.
      *
      * @return void
      *
@@ -86,7 +92,7 @@ class Application extends BaseObject implements IApplication
     /**
      * Метод возвращает компонент запросов.
      *
-     * @param IRequest $value
+     * @param IMigration $value Новое значение.
      *
      * @return void
      *
@@ -95,6 +101,20 @@ class Application extends BaseObject implements IApplication
     public function setMigration(IMigration $value): void
     {
         $this->migrationComponent = $value;
+    }
+
+    /**
+     * Метод возвращает компонент БД.
+     *
+     * @param IDatabase $value Новое значение.
+     *
+     * @return void
+     *
+     * @throws Exception Если класс фабрики отсутствует.
+     */
+    public function setDb(IDatabase $value): void
+    {
+        $this->dbComponent = $value;
     }
 
     /**
@@ -143,5 +163,21 @@ class Application extends BaseObject implements IApplication
         }
 
         return $this->migrationComponent;
+    }
+
+    /**
+     * Метод возвращает компонент БД.
+     *
+     * @return IDatabase
+     *
+     * @throws Exception
+     */
+    public function getDb(): IDatabase
+    {
+        if (null === $this->dbComponent) {
+            throw new Exception('Компонент отсутствует.');
+        }
+
+        return $this->dbComponent;
     }
 }

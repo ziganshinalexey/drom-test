@@ -2,6 +2,7 @@
 
 namespace Core\application\interfaces;
 
+use Core\db\interfaces\IDatabase;
 use Core\migration\interfaces\IMigration;
 use Core\request\interfaces\IRequest;
 use Core\route\interfaces\IRoute;
@@ -38,4 +39,11 @@ interface IApplication
      * @return IMigration
      */
     public function getMigration(): IMigration;
+
+    /**
+     * Метод возвращает компонент БД.
+     *
+     * @return IDatabase
+     */
+    public function getDb(): IDatabase;
 }

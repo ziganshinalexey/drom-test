@@ -15,4 +15,13 @@ interface IDownOperation
      * @return void
      */
     public function run(): void;
+
+    /**
+     * Метод задает путь до папки с миграциями.
+     *
+     * @param string $value Новое значение.
+     *
+     * @return void
+     */
+    public function setMigrationPath(string $value): void;
 }

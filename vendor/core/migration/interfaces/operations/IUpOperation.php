@@ -21,7 +21,7 @@ interface IUpOperation
      *
      * @param string $value Новое значение.
      *
-     * @return IUpOperation
+     * @return void
      */
-    public function setMigrationPath(string $value): IUpOperation;
+    public function setMigrationPath(string $value): void;
 }

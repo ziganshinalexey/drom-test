@@ -7,7 +7,7 @@ use Exception;
 /**
  * Базовый класс для всех классов от которых будут пораждать объекты.
  */
-class BaseObject
+class BaseObject implements IBaseObject
 {
     /**
      * Базой конструктор.

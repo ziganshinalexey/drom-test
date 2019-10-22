@@ -83,6 +83,7 @@ class Migration extends BaseObject implements IMigration
     public function down(): IDownOperation
     {
         $operation = $this->getFactory()->getDownOperation();
+        $operation->setMigrationPath($this->getMigrationPath());
 
         return $operation;
     }

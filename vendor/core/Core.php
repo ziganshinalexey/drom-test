@@ -91,6 +91,10 @@ class Core
 
         $reflection = new ReflectionClass($class);
 
-        return $reflection->newInstance($argumentList);
+        if ($reflection->implementsInterface('Core\IBaseObject')) {
+            return $reflection->newInstance($argumentList);
+        }
+
+        return $reflection->newInstanceArgs($argumentList);
     }
 }
