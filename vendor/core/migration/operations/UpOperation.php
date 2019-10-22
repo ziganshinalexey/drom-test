@@ -23,9 +23,14 @@ class UpOperation extends BaseOperation implements IUpOperation
      */
     public function run(): void
     {
-        $this->getAppliedMigration();
+        $appliedMigrationList = $this->getAppliedMigration();
+        $dateTimeList         = array_flip(array_column($appliedMigrationList, 'id'));
 
-        foreach ($this->getMigrationList() as $migrationClass) {
+        foreach ($this->getMigrationList() as $dateTime => $migrationClass) {
+            if (isset($dateTimeList[$dateTime])) {
+                continue;
+            }
+
             $migration = Core::createObject(['class' => $migrationClass]);
 
             if (! $migration instanceof IMigrationModel) {
@@ -34,6 +39,8 @@ class UpOperation extends BaseOperation implements IUpOperation
 
             echo 'Сейчас для вас накатывается: ' . $migrationClass . PHP_EOL;
             $migration->up();
+
+            $this->insertAppliedMigration((string)$dateTime, (string)$migrationClass);
         }
     }
 }

@@ -85,6 +85,49 @@ class BaseOperation extends BaseObject
     }
 
     /**
+     * Метод удаляет запись миграции из таблицы.
+     *
+     * @param string $dateTime Время когда была создана миграция.
+     *
+     * @return bool
+     *
+     * @throws Exception
+     */
+    protected function removeAppliedMigration(string $dateTime)
+    {
+        $sql = 'delete from `' . IMigration::MIGRATION_TABLE_NAME . '` where `id`=' . $dateTime;
+
+        $result = $this->getConnection()->execute($sql);
+
+        return $result->isSuccess();
+    }
+
+    /**
+     * Метод добавляет запись с миграцией в таблицу.
+     *
+     * @param string $dateTime  Время когда была создана миграция.
+     * @param string $className Название миграции.
+     *
+     * @return bool
+     *
+     * @throws Exception
+     */
+    protected function insertAppliedMigration(string $dateTime, string $className)
+    {
+        $sql = 'insert into `' . IMigration::MIGRATION_TABLE_NAME . '` (
+            `id`,
+            `name`
+        ) values (
+            \'' . $dateTime . '\',
+            \'' . $className . '\'
+        )';
+
+        $result = $this->getConnection()->execute($sql);
+
+        return $result->isSuccess();
+    }
+
+    /**
      * Метод возвращает все миграции которые применили.
      *
      * @throws Exception

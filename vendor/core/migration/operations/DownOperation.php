@@ -23,7 +23,17 @@ class DownOperation extends BaseOperation implements IDownOperation
      */
     public function run(): void
     {
-        foreach ($this->getMigrationList() as $migrationClass) {
+        $appliedMigrationList = $this->getAppliedMigration();
+        $dateTimeList         = array_flip(array_column($appliedMigrationList, 'id'));
+
+        $migrationList = $this->getMigrationList();
+        krsort($migrationList);
+
+        foreach ($migrationList as $dateTime => $migrationClass) {
+            if (! isset($dateTimeList[$dateTime])) {
+                continue;
+            }
+
             $migration = Core::createObject(['class' => $migrationClass]);
 
             if (! $migration instanceof IMigrationModel) {
@@ -32,6 +42,8 @@ class DownOperation extends BaseOperation implements IDownOperation
 
             echo 'Сейчас для вас откатывается: ' . $migrationClass . PHP_EOL;
             $migration->down();
+
+            $this->removeAppliedMigration((string)$dateTime);
         }
     }
 }
