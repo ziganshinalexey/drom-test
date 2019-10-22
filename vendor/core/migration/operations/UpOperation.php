@@ -23,6 +23,8 @@ class UpOperation extends BaseOperation implements IUpOperation
      */
     public function run(): void
     {
+        $this->getAppliedMigration();
+
         foreach ($this->getMigrationList() as $migrationClass) {
             $migration = Core::createObject(['class' => $migrationClass]);
 

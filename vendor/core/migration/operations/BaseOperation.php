@@ -3,6 +3,8 @@
 namespace Core\migration\operations;
 
 use Core\BaseObject;
+use Core\db\traits\WithConnectionTrait;
+use Core\migration\interfaces\IMigration;
 use Exception;
 
 /**
@@ -10,6 +12,8 @@ use Exception;
  */
 class BaseOperation extends BaseObject
 {
+    use WithConnectionTrait;
+
     protected const MIGRATE_CLASS = 1;
     protected const MIGRATE_DATE  = 2;
     protected const MIGRATE_TIME  = 3;
@@ -78,5 +82,60 @@ class BaseOperation extends BaseObject
         }
 
         return $this->migrationPath;
+    }
+
+    /**
+     * Метод возвращает все миграции которые применили.
+     *
+     * @throws Exception
+     *
+     * @return array
+     */
+    protected function getAppliedMigration(): array
+    {
+        if (! $this->migrationTableExists() && ! $this->createMigrationTable()) {
+            throw new Exception('Таблица с миграциями не существует или не может быть создана.');
+        }
+
+        $sql = 'select * from `' . IMigration::MIGRATION_TABLE_NAME . '`';
+
+        $result = $this->getConnection()->execute($sql);
+
+        return $result->getData();
+    }
+
+    /**
+     * Метод проверяет наличие таблицы с миграциями.
+     *
+     * @return bool
+     *
+     * @throws Exception
+     */
+    protected function migrationTableExists(): bool
+    {
+        $sql = 'show tables like "' . IMigration::MIGRATION_TABLE_NAME . '"';
+
+        $data = $this->getConnection()->execute($sql)->getData();
+
+        return ! empty($data);
+    }
+
+    /**
+     * Метод создает таблицу с миграциями.
+     *
+     * @return bool
+     *
+     * @throws Exception
+     */
+    protected function createMigrationTable()
+    {
+        $sql = 'create table `' . IMigration::MIGRATION_TABLE_NAME . '` (
+            `id` varchar(12) primary key,
+            `name` varchar(255) not null
+        )';
+
+        $result = $this->getConnection()->execute($sql);
+
+        return $result->isSuccess();
     }
 }

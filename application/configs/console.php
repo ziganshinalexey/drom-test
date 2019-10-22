@@ -12,6 +12,7 @@ use Core\migration\factories\Factory as MigrationFactory;
 use Core\migration\operations\DownOperation;
 use Core\migration\operations\UpOperation;
 use Core\request\components\console\Request;
+use Core\result\DataResult;
 use Core\route\components\Route;
 
 return [
@@ -48,6 +49,7 @@ return [
                     'passwd'   => '123',
                     'dbname'   => 'todo',
                 ],
+                DBFactory::RESULT     => ['class' => DataResult::class],
             ],
         ],
     ],

@@ -13,6 +13,8 @@ use Core\migration\interfaces\operations\IUpOperation;
  */
 interface IMigration extends IWithFactory
 {
+    public const MIGRATION_TABLE_NAME = 'migration';
+
     /**
      * Метод возвращает операцию применения миграций.
      *

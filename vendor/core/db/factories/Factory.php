@@ -7,6 +7,8 @@ namespace Core\db\factories;
 use Core\db\interfaces\IConnection;
 use Core\db\interfaces\IFactory;
 use Core\factory\Factory as BaseFactory;
+use Core\result\interfaces\IDataResult;
+use Core\result\interfaces\IWithDataResult;
 use Exception;
 
 /**
@@ -15,9 +17,10 @@ use Exception;
 class Factory extends BaseFactory implements IFactory
 {
     public const CONNECTION = 'connection';
+    public const RESULT     = 'dataResult';
 
     /**
-     *  Метод возвращает объект для соединения с БД.
+     * Метод возвращает объект для соединения с БД.
      *
      * @return IConnection
      *
@@ -25,6 +28,23 @@ class Factory extends BaseFactory implements IFactory
      */
     public function getConnection(): IConnection
     {
-        return $this->getInstance(static::CONNECTION);
+        $object = $this->getInstance(static::CONNECTION);
+        if ($object instanceof IWithDataResult) {
+            $object->setResult($this->getResult());
+        }
+
+        return $object;
+    }
+
+    /**
+     * Метод возвращает объект для соединения с БД.
+     *
+     * @return IDataResult
+     *
+     * @throws Exception Если отсутствует нужный ключ в конфигурации.
+     */
+    protected function getResult(): IDataResult
+    {
+        return $this->getInstance(static::RESULT);
     }
 }
