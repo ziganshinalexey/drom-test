@@ -34,7 +34,6 @@ class Connection extends mysqli implements IConnection
             throw new Exception($this->error);
         }
 
-        var_dump($result);
-        die;
+        return $result;
     }
 }
