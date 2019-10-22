@@ -3,7 +3,7 @@
 use Core\Core;
 use Core\migration\AbstractMigrationModel;
 
-class m345543_234432_test extends AbstractMigrationModel
+class m191023_002400_create_user_table extends AbstractMigrationModel
 {
     /**
      * Метод накатывает миграцию.
