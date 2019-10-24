@@ -16,14 +16,13 @@ class Controller extends BaseObject implements IController
     /**
      * Метод  исполнения действия.
      *
-     * @param string $route     Роут.
-     * @param array  $paramList Список параметров.
+     * @param string $route Роут.
      *
      * @return void
      *
      * @throws Exception Если действие не найдено.
      */
-    public function runAction(string $route, array $paramList = []): void
+    public function runAction(string $route): void
     {
         $actionId   = substr($route, strripos($route, '/') + 1);
         $actionName = static::ACTION_PREFIX . ucfirst($actionId);

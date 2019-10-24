@@ -14,9 +14,9 @@ interface IRoute
     /**
      * Метод возвращает объект контроллера.
      *
-     * @param string $route роут контроллера.
+     * @param null|string $route роут контроллера.
      *
      * @return IController|null
      */
-    public function findController(string $route): ?IController;
+    public function findController(string $route = null): ?IController;
 }

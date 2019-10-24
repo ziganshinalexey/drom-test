@@ -2,42 +2,28 @@
 
 declare(strict_types = 1);
 
-use Core\application\components\console\Application;
+use Core\application\components\web\Application;
 use Core\db\components\DataBase;
 use Core\db\factories\Factory as DBFactory;
 use Core\db\mysql\Connection;
 use Core\migration\commands\MigrateController;
-use Core\migration\components\Migration;
-use Core\migration\factories\Factory as MigrationFactory;
-use Core\migration\operations\DownOperation;
-use Core\migration\operations\UpOperation;
-use Core\request\components\console\Request;
+use Core\request\components\web\Request;
 use Core\result\DataResult;
 use Core\route\components\Route;
 
 return [
-    'class'     => Application::class,
-    'request'   => [
+    'class'   => Application::class,
+    'request' => [
         'class' => Request::class,
     ],
-    'route'     => [
+    'route'   => [
         'class'         => Route::class,
+        'defaultRoute'  => 'site/index',
         'controllerMap' => [
             'migrate' => MigrateController::class,
         ],
     ],
-    'migration' => [
-        'class'         => Migration::class,
-        'factory'       => [
-            'class'  => MigrationFactory::class,
-            'config' => [
-                MigrationFactory::DOWN_OPERATION => ['class' => DownOperation::class],
-                MigrationFactory::UP_OPERATION   => ['class' => UpOperation::class],
-            ],
-        ],
-        'migrationPath' => dirname(__FILE__, 2) . '/migrations',
-    ],
-    'db'        => [
+    'db'      => [
         'class'   => DataBase::class,
         'factory' => [
             'class'  => DBFactory::class,

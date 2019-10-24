@@ -14,10 +14,9 @@ interface IController
     /**
      * Метод  исполнения действия.
      *
-     * @param string $route     Роут.
-     * @param array  $paramList Список параметров.
+     * @param string $route Роут.
      *
      * @return void
      */
-    public function runAction(string $route, array $paramList = []): void;
+    public function runAction(string $route): void;
 }

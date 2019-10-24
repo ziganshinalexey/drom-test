@@ -2,11 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Core\application\interfaces;
+namespace Core\application\interfaces\web;
 
 use Core\db\interfaces\IDatabase;
-use Core\migration\interfaces\IMigration;
-use Core\request\interfaces\IRequest;
+use Core\request\interfaces\web\IRequest;
 use Core\route\interfaces\IRoute;
 
 /**
@@ -34,13 +33,6 @@ interface IApplication
      * @return IRoute
      */
     public function getRoute(): IRoute;
-
-    /**
-     * Метод возвращает компонент миграций.
-     *
-     * @return IMigration
-     */
-    public function getMigration(): IMigration;
 
     /**
      * Метод возвращает компонент БД.

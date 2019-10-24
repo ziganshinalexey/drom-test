@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace Core;
 
-use Core\application\interfaces\IApplication;
+use Core\application\interfaces\console\IApplication as WebIApplication;
+use Core\application\interfaces\web\IApplication as ConsoleIApplication;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
@@ -17,18 +16,18 @@ class Core
     /**
      * Свойство хранит объект приложения.
      *
-     * @var IApplication|null
+     * @var WebIApplication|ConsoleIApplication|null
      */
     protected static $application;
 
     /**
      * Метод задает объект приложения.
      *
-     * @param IApplication $value Новое значение.
+     * @param WebIApplication|ConsoleIApplication $value Новое значение.
      *
      * @return void
      */
-    public static function setApplication(IApplication $value): void
+    public static function setApplication($value): void
     {
         static::$application = $value;
     }
@@ -36,11 +35,11 @@ class Core
     /**
      * Метод возвращает объект приложения.
      *
-     * @return IApplication
+     * @return WebIApplication|ConsoleIApplication
      *
      * @throws Exception Если объект приложения не задан.
      */
-    public static function getApplication(): IApplication
+    public static function getApplication()
     {
         if (null === static::$application) {
             throw new Exception('Приложение не может быть пустым.');

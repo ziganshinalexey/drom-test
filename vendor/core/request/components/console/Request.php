@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Core\request\components\console;
 
 use Core\BaseObject;
-use Core\request\interfaces\IRequest;
+use Core\request\interfaces\console\IRequest;
 use Exception;
 
 /**
@@ -28,10 +28,6 @@ class Request extends BaseObject implements IRequest
     {
         $serverArgumentList = $this->getServerArgumentList();
         $route              = (string)array_shift($serverArgumentList);
-
-        if (! $route) {
-            throw new Exception('Роут не задан.');
-        }
 
         return $route;
     }
