@@ -59,7 +59,7 @@ class Route extends BaseObject implements IRoute
      */
     public function findController(string $route): ?IController
     {
-        preg_match('/^(\S*)\/(\S*)$/', $route, $matchList);
+        preg_match('/^(\S*)\/(\S*)\??$/', $route, $matchList);
         [
             static::CONTROLLER_ROUTE  => $controllerRoute,
             static::CONTROLLER_ACTION => $actionId,
