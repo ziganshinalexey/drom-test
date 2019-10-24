@@ -11,6 +11,8 @@ use Core\request\components\web\Request;
 use Core\result\DataResult;
 use Core\route\components\Route;
 
+$appDirectory = dirname(__FILE__, 2);
+
 return [
     'class'   => Application::class,
     'request' => [
@@ -20,7 +22,12 @@ return [
     'route'   => [
         'class'         => Route::class,
         'controllerMap' => [
-            'site' => SiteController::class,
+            'site' => [
+                'class'   => SiteController::class,
+                'viewMap' => [
+                    'index' => $appDirectory . '/views/site/index.php',
+                ],
+            ],
         ],
     ],
     'db'      => [

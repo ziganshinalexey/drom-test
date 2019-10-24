@@ -23,7 +23,7 @@ return [
     'route'     => [
         'class'         => Route::class,
         'controllerMap' => [
-            'migrate' => MigrateController::class,
+            'migrate' => ['class' => MigrateController::class],
         ],
     ],
     'migration' => [

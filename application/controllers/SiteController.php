@@ -3,7 +3,6 @@
 namespace App\controllers;
 
 use Core\controller\Controller;
-use Core\Core;
 use Exception;
 
 /**
@@ -20,10 +19,6 @@ class SiteController extends Controller
      */
     public function actionIndex(): void
     {
-        $id = Core::getApplication()->getRequest()->getByKey('id');
-        var_dump($id);
-        die;
-
-        return;
+        $this->render('index');
     }
 }

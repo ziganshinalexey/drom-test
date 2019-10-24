@@ -69,12 +69,12 @@ class Route extends BaseObject implements IRoute
             throw new Exception('Роут указан неверно.');
         }
 
-        $controllerClass = $this->getControllerMap()[$controllerRoute] ?? null;
-        if (! $controllerClass) {
+        $controllerConfig = $this->getControllerMap()[$controllerRoute] ?? null;
+        if (! $controllerConfig) {
             throw new Exception('Контроллер не найден.');
         }
 
         /* @noinspection PhpIncompatibleReturnTypeInspection */
-        return Core::createObject(['class' => $controllerClass]);
+        return Core::createObject((array)$controllerConfig);
     }
 }
