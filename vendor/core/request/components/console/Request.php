@@ -24,7 +24,7 @@ class Request extends BaseObject implements IRequest
      *
      * @throws Exception Если роутинг поломался.
      */
-    public function getRoute(): string
+    public function getRouteName(): string
     {
         $serverArgumentList = $this->getServerArgumentList();
         $route              = (string)array_shift($serverArgumentList);

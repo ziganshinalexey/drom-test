@@ -14,7 +14,7 @@ interface IRequest
      *
      * @return string
      */
-    public function getRoute(): string;
+    public function getRouteName(): string;
 
     /**
      * Метод возвращает параметры запроса.

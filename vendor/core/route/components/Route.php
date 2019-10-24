@@ -25,41 +25,6 @@ class Route extends BaseObject implements IRoute
     protected $controllerMap = [];
 
     /**
-     * Свойтсво хранит роут по-умолчанию.
-     *
-     * @var string|null
-     */
-    protected $defaultRoute;
-
-    /**
-     * Метод задает роут по-умолчанию.
-     *
-     * @param string $value Новое значение.
-     *
-     * @return void
-     */
-    public function setDefaultRoute(string $value): void
-    {
-        $this->defaultRoute = $value;
-    }
-
-    /**
-     * Метод возвращает роут по-умолчанию.
-     *
-     * @return string|null
-     *
-     * @throws Exception
-     */
-    public function getDefaultRoute(): ?string
-    {
-        if (null === $this->defaultRoute) {
-            throw new Exception('Роут по-умолчанию не задан.');
-        }
-
-        return $this->defaultRoute;
-    }
-
-    /**
      * Метод задает карту роут => класс котроллера.
      *
      * @param array $value Новое значение.
@@ -86,18 +51,14 @@ class Route extends BaseObject implements IRoute
     /**
      * Метод возвращает объект контроллера.
      *
-     * @param null|string $route роут контроллера.
+     * @param string $route роут контроллера.
      *
      * @return IController|null
      *
      * @throws Exception Если роут передан неверно или контроллер не найден.
      */
-    public function findController(string $route = null): ?IController
+    public function findController(string $route): ?IController
     {
-        if (empty($route)) {
-            $route = $this->getDefaultRoute();
-        }
-
         preg_match('/^(\S*)\/(\S*)$/', $route, $matchList);
         [
             static::CONTROLLER_ROUTE  => $controllerRoute,

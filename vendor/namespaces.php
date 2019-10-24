@@ -7,5 +7,5 @@ $appPath    = dirname(__FILE__, 2);
 
 return [
     'Core' => $vendorPath . '/core',
-    'App'  => $appPath,
+    'App'  => $appPath . '/application',
 ];

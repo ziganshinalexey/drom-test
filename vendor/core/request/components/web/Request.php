@@ -14,17 +14,29 @@ use Exception;
 class Request extends BaseObject implements IRequest
 {
     protected const SERVER_REQUEST_URI_KEY = 'REQUEST_URI';
+    /**
+     * Свойтсво хранит роут по-умолчанию.
+     *
+     * @var string|null
+     */
+    protected $defaultRouteName;
 
     /**
      * Метод возвращает путь обращения.
      *
-     * @return string|null
+     * @return string
      *
      * @throws Exception Если роутинг поломался.
      */
-    public function getRoute(): ?string
+    public function getRouteName(): string
     {
-        return substr($_SERVER[static::SERVER_REQUEST_URI_KEY], 1);
+        $uri = substr($_SERVER[static::SERVER_REQUEST_URI_KEY], 1);
+
+        if (empty($uri)) {
+            return $this->getDefaultRouteName();
+        }
+
+        return $uri;
     }
 
     /**
@@ -47,5 +59,33 @@ class Request extends BaseObject implements IRequest
     public function post(): array
     {
         return (array)$_POST;
+    }
+
+    /**
+     * Метод задает роут по-умолчанию.
+     *
+     * @param string $value Новое значение.
+     *
+     * @return void
+     */
+    public function setDefaultRouteName(string $value): void
+    {
+        $this->defaultRouteName = $value;
+    }
+
+    /**
+     * Метод возвращает роут по-умолчанию.
+     *
+     * @return string|null
+     *
+     * @throws Exception
+     */
+    protected function getDefaultRouteName(): ?string
+    {
+        if (null === $this->defaultRouteName) {
+            throw new Exception('Роут по-умолчанию не задан.');
+        }
+
+        return $this->defaultRouteName;
     }
 }

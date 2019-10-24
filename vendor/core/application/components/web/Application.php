@@ -31,7 +31,7 @@ class Application extends BaseApplication implements IApplication
     public function run(): void
     {
         $request = $this->getRequest();
-        $route   = $request->getRoute();
+        $route   = $request->getRouteName();
 
         $controller = $this->getRoute()->findController($route);
 
