@@ -13,7 +13,7 @@ use Exception;
  */
 class Request extends BaseObject implements IRequest
 {
-    protected const SERVER_REQUEST_URI_KEY = 'REQUEST_URI';
+    protected const SERVER_REQUEST_URI_KEY = 'REDIRECT_URL';
     /**
      * Свойтсво хранит роут по-умолчанию.
      *
