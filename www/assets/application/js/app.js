@@ -1,4 +1,8 @@
+const ENTER_KEY_CODE = 13;
+
 (function (window, jquery) {
+    const $todoList = jquery('.todo-list');
+
     function createItem (item) {
         const template = `
             <li class="item-${item.id}${item.isSuccess ? ' completed' : ''}">
@@ -21,17 +25,37 @@
         $todoItem.find('.destroy').on('click', function (event) {
             // TODO: do ajax
             $todoItem.remove();
+            calculateItems();
         });
 
-        return $todoItem;
+        $todoList.append($todoItem);
+        calculateItems();
     }
+
+    function calculateItems () {
+        const itemsCount = jquery('.todo-list li').length;
+        const $strong = jquery('.todo-count strong').text(itemsCount);
+    }
+
+    jquery('.new-todo').on('keypress', function (event) {
+        if (ENTER_KEY_CODE !== event.keyCode) {
+            return;
+        }
+
+        const input = event.currentTarget;
+        const newItem = {
+            id: 1,
+            name: input.value,
+            isSuccess: false
+        };
+        createItem(newItem);
+        jquery(input).val(null);
+    });
 
     jquery.ajax('/mocks/todos/list.json').done(function (data) {
         console.log(data);
-        const $todoList = jquery('.todo-list');
-        data.data.forEach(function (item, index) {
-            const $todoItem = createItem(item);
-            $todoList.append($todoItem);
+        data.data.forEach(function (item) {
+            createItem(item);
         })
     });
 })(window, window.jQuery);
