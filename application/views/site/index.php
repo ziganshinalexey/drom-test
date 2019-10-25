@@ -23,24 +23,6 @@
         <input id="toggle-all" class="toggle-all" type="checkbox">
         <label for="toggle-all">Mark all as complete</label>
         <ul class="todo-list">
-            <!-- These are here just to show the structure of the list items -->
-            <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-            <li class="completed">
-                <div class="view">
-                    <input class="toggle" type="checkbox" checked>
-                    <label>Taste JavaScript</label>
-                    <button class="destroy"></button>
-                </div>
-                <input class="edit" value="Create a TodoMVC template">
-            </li>
-            <li>
-                <div class="view">
-                    <input class="toggle" type="checkbox">
-                    <label>Buy a unicorn</label>
-                    <button class="destroy"></button>
-                </div>
-                <input class="edit" value="Rule the web">
-            </li>
         </ul>
     </section>
     <!-- This footer should hidden by default and shown when there are todos -->
@@ -67,6 +49,7 @@
     <p>Double-click to edit a todo</p>
     <p>Created by <a href="https://vk.com/alexey_ziganshin">Ziganshin Alexey</a></p>
 </footer>
+<script src="/assets/jquery/jquery.min.js"></script>
 <script src="/assets/todomvc-common/base.js"></script>
 <script src="/assets/application/js/app.js"></script>
 </body>

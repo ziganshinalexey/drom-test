@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "id": 2,
+            "name": "Отсосать у Семена",
+            "isSuccess": false
+        },
+        {
+            "id": 3,
+            "name": "Отсосать у Сани",
+            "isSuccess": true
+        },
+        {
+            "id": 4,
+            "name": "Отсосать у Тимура",
+            "isSuccess": true
+        },
+        {
+            "id": 5,
+            "name": "Отсосать у Жени",
+            "isSuccess": true
+        }
+    ]
+}
