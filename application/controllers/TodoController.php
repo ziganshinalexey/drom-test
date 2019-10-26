@@ -38,4 +38,23 @@ class TodoController extends Controller
 
         $this->renderJson(['data' => $result->getData()]);
     }
+
+    /**
+     * Метод возвращает список действия.
+     *
+     * @todo: является черновым.
+     *
+     * @throws Exception
+     */
+    public function actionCreate(): void
+    {
+        $data       = Core::getApplication()->getRequest()->post();
+        var_dump(file_get_contents('php://input')); die;
+
+        $data['id'] = random_int(1, 3254234);
+
+        $this->renderJson([
+            'data' => $data,
+        ]);
+    }
 }

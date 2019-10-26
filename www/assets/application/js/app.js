@@ -1,13 +1,55 @@
 const ENTER_KEY_CODE = 13;
+const LIST_URL = '/todo/list';
+const CREATE_URL = '/todo/create';
+const REMOVE_URL = '/todo/remove';
 
 (function (window, jquery) {
     const $todoList = jquery('.todo-list');
 
+    jquery.ajax(LIST_URL).done(function (data) {
+        data.data.forEach(function (item) {
+            createItem(item);
+        })
+    });
+
+    jquery('.new-todo').on('keypress', function (event) {
+        if (ENTER_KEY_CODE !== event.keyCode) {
+            return;
+        }
+
+        const input = event.currentTarget;
+        const data = {
+            name: input.value,
+            isCompleted: false
+        };
+
+        sendCreateRequest(data);
+
+        jquery(input).val(null);
+    });
+
+    function sendCreateRequest (data) {
+        request = {
+            url: CREATE_URL,
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(data)
+        };
+
+        return jquery.ajax(request).done(function (data) {
+            responseObject = data.data;
+            if (responseObject) {
+                createItem(responseObject);
+            }
+        });
+    }
+
     function createItem (item) {
         const template = `
-            <li class="item-${item.id}${item.isSuccess ? ' completed' : ''}">
+            <li class="item-${item.id}${item.isCompleted ? ' completed' : ''}">
                 <div class="view">
-                    <input class="toggle" type="checkbox" ${item.isSuccess ? ' checked="checked"' : ""}>
+                    <input class="toggle" type="checkbox" ${item.isCompleted ? ' checked="checked"' : ""}>
                     <label>${item.name}</label>
                     <button class="destroy"></button>
                 </div>
@@ -36,26 +78,4 @@ const ENTER_KEY_CODE = 13;
         const itemsCount = jquery('.todo-list li').length;
         const $strong = jquery('.todo-count strong').text(itemsCount);
     }
-
-    jquery('.new-todo').on('keypress', function (event) {
-        if (ENTER_KEY_CODE !== event.keyCode) {
-            return;
-        }
-
-        const input = event.currentTarget;
-        const newItem = {
-            id: 1,
-            name: input.value,
-            isSuccess: false
-        };
-        createItem(newItem);
-        jquery(input).val(null);
-    });
-
-    jquery.ajax('/todo/list').done(function (data) {
-        console.log(data);
-        data.data.forEach(function (item) {
-            createItem(item);
-        })
-    });
 })(window, window.jQuery);
