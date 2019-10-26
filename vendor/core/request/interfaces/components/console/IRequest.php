@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Core\request\interfaces\console;
+namespace Core\request\interfaces\components\console;
 
 /**
  * Интерфейс IRequest объявляет методы компонента.

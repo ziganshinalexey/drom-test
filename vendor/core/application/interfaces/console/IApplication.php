@@ -6,7 +6,7 @@ namespace Core\application\interfaces\console;
 
 use Core\db\interfaces\IDatabase;
 use Core\migration\interfaces\IMigration;
-use Core\request\interfaces\console\IRequest;
+use Core\request\interfaces\components\console\IRequest;
 use Core\route\interfaces\IRoute;
 
 /**

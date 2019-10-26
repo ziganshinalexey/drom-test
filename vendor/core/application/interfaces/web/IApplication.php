@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Core\application\interfaces\web;
 
 use Core\db\interfaces\IDatabase;
-use Core\request\interfaces\web\IRequest;
+use Core\request\interfaces\components\web\IRequest;
 use Core\response\interfaces\IResponse;
 use Core\route\interfaces\IRoute;
 

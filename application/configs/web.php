@@ -8,6 +8,7 @@ use Core\db\components\DataBase;
 use Core\db\factories\Factory as DBFactory;
 use Core\db\mysql\Connection;
 use Core\request\components\web\Request;
+use Core\request\parsers\JsonParser;
 use Core\response\components\Response;
 use Core\result\DataResult;
 use Core\route\components\Route;
@@ -19,6 +20,9 @@ return [
     'request'  => [
         'class'            => Request::class,
         'defaultRouteName' => 'todo/index',
+        'parserList'       => [
+            'application/json' => ['class' => JsonParser::class],
+        ],
     ],
     'route'    => [
         'class'         => Route::class,

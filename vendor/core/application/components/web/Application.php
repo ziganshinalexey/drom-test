@@ -6,7 +6,7 @@ namespace Core\application\components\web;
 
 use Core\application\components\BaseApplication;
 use Core\application\interfaces\web\IApplication;
-use Core\request\interfaces\web\IRequest;
+use Core\request\interfaces\components\web\IRequest;
 use Core\response\interfaces\IResponse;
 use Exception;
 

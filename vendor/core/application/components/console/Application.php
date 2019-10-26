@@ -7,7 +7,7 @@ namespace Core\application\components\console;
 use Core\application\components\BaseApplication;
 use Core\application\interfaces\console\IApplication;
 use Core\migration\interfaces\IMigration;
-use Core\request\interfaces\console\IRequest;
+use Core\request\interfaces\components\console\IRequest;
 use Exception;
 
 /**

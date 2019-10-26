@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Core\request\components\console;
 
 use Core\BaseObject;
-use Core\request\interfaces\console\IRequest;
+use Core\request\interfaces\components\console\IRequest;
 use Exception;
 
 /**
