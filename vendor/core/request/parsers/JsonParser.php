@@ -2,12 +2,13 @@
 
 namespace Core\request\parsers;
 
+use Core\BaseObject;
 use Core\request\interfaces\parsers\IParser;
 
 /**
  * Класс JsonParser реализует методы парса json запросов.
  */
-class JsonParser implements IParser
+class JsonParser extends BaseObject implements IParser
 {
     protected const REQUEST_BODY_STREAM = 'php://input';
 
