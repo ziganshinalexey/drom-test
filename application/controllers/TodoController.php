@@ -3,7 +3,7 @@
 namespace App\controllers;
 
 use Core\controller\Controller;
-use Core\Core;
+use Core\db\traits\WithDatabaseComponent;
 use Exception;
 
 /**
@@ -11,6 +11,8 @@ use Exception;
  */
 class TodoController extends Controller
 {
+    use WithDatabaseComponent;
+
     /**
      * Метод выполняет действие по-умолчанию.
      *
@@ -34,7 +36,7 @@ class TodoController extends Controller
     {
         $sql = 'select * from `todo`';
 
-        $result = Core::getApplication()->getDb()->getConnection()->execute($sql);
+        $result = $this->getDatabaseComponent()->getConnection()->execute($sql);
 
         $this->renderJson(['data' => $result->getData()]);
     }
@@ -48,7 +50,7 @@ class TodoController extends Controller
      */
     public function actionCreate(): void
     {
-        $data       = Core::getApplication()->getRequest()->post();
+        $data       = $this->getRequestComponent()->post();
         $data['id'] = random_int(1, 3254234);
 
         $this->renderJson([

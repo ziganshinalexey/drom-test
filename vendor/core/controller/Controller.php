@@ -6,6 +6,7 @@ namespace Core\controller;
 
 use Core\BaseObject;
 use Core\controller\interfaces\IController;
+use Core\request\traits\web\WithRequestComponent;
 use Core\response\traits\WithResponseComponent;
 use Exception;
 
@@ -15,6 +16,7 @@ use Exception;
 class Controller extends BaseObject implements IController
 {
     use WithResponseComponent;
+    use WithRequestComponent;
     /**
      * Свойтсво хранит карту Условное название => Путь к файлу.
      *
