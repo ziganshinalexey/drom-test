@@ -4,10 +4,9 @@ declare(strict_types = 1);
 
 namespace Core\application\components;
 
+use Core\application\interfaces\IComponent;
 use Core\BaseObject;
-use Core\db\interfaces\IDatabase;
-use Core\migration\interfaces\IMigration;
-use Core\route\interfaces\IRoute;
+use Core\Core;
 use Exception;
 
 /**
@@ -16,17 +15,44 @@ use Exception;
 abstract class BaseApplication extends BaseObject
 {
     /**
-     * Свойство хранит объект компонента БД.
+     * Свойство содержит список компонентов.
      *
-     * @var IDatabase|null
+     * @var array
      */
-    protected $dbComponent;
+    protected $componentList = [];
+
     /**
-     * Свойство хранит объект компонента роутинга.
+     * Метод задает список компонентов.
      *
-     * @var IRoute|null
+     * @param array $value
      */
-    protected $routeComponent;
+    public function setComponentList(array $value): void
+    {
+        $value = array_map(function($config) {
+            return Core::createObject($config);
+        }, $value);
+
+        $this->componentList = $value;
+    }
+
+    /**
+     * Метод возвращает компонент по его названию.
+     *
+     * @param string $name Название компонента.
+     *
+     * @return IComponent
+     *
+     * @throws Exception
+     */
+    public function getComponent(string $name): IComponent
+    {
+        $component = $this->componentList[$name] ?? null;
+        if (! $component instanceof IComponent) {
+            throw new Exception($name . ' компонент не задан.');
+        }
+
+        return $component;
+    }
 
     /**
      * Метод исполнения заветных желаний.
@@ -36,64 +62,4 @@ abstract class BaseApplication extends BaseObject
      * @throws Exception
      */
     abstract public function run(): void;
-
-    /**
-     * Метод возвращает компонент БД.
-     *
-     * @param IDatabase $value Новое значение.
-     *
-     * @return void
-     *
-     * @throws Exception Если класс фабрики отсутствует.
-     */
-    public function setDb(IDatabase $value): void
-    {
-        $this->dbComponent = $value;
-    }
-
-    /**
-     * Метод возвращает компонент запросов.
-     *
-     * @param IRoute $value Новое значение.
-     *
-     * @return void
-     *
-     * @throws Exception Если класс фабрики отсутствует.
-     */
-    public function setRoute(IRoute $value): void
-    {
-        $this->routeComponent = $value;
-    }
-
-    /**
-     * Метод возвращает компонент БД.
-     *
-     * @return IDatabase
-     *
-     * @throws Exception
-     */
-    public function getDb(): IDatabase
-    {
-        if (null === $this->dbComponent) {
-            throw new Exception('Компонент отсутствует.');
-        }
-
-        return $this->dbComponent;
-    }
-
-    /**
-     * Метод возвращает компонент роутинга.
-     *
-     * @return IRoute
-     *
-     * @throws Exception
-     */
-    public function getRoute(): IRoute
-    {
-        if (null === $this->routeComponent) {
-            throw new Exception('Компонент отсутствует.');
-        }
-
-        return $this->routeComponent;
-    }
 }

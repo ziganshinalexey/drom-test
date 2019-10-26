@@ -4,11 +4,15 @@ declare(strict_types = 1);
 
 namespace Core\response\interfaces;
 
+use Core\application\interfaces\IComponent;
+
 /**
  * Интерфейс IRequest объявляет методы компонента.
  */
-interface IResponse
+interface IResponse extends IComponent
 {
+    public const COMPONENT_NAME = 'response';
+
     /**
      * Метод задает список заголовков.
      *

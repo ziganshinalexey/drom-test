@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Core\migration\operations;
 
 use Core\BaseObject;
-use Core\db\traits\WithConnectionTrait;
+use Core\db\traits\WithDatabaseComponent;
 use Core\migration\interfaces\IMigration;
 use Exception;
 
@@ -14,7 +14,7 @@ use Exception;
  */
 class BaseOperation extends BaseObject
 {
-    use WithConnectionTrait;
+    use WithDatabaseComponent;
 
     protected const MIGRATE_CLASS = 1;
     protected const MIGRATE_DATE  = 2;
@@ -99,7 +99,7 @@ class BaseOperation extends BaseObject
     {
         $sql = 'delete from `' . IMigration::MIGRATION_TABLE_NAME . '` where `id`=' . $dateTime;
 
-        $result = $this->getConnection()->execute($sql);
+        $result = $this->getDatabaseComponent()->getConnection()->execute($sql);
 
         return $result->isSuccess();
     }
@@ -124,7 +124,7 @@ class BaseOperation extends BaseObject
             \'' . $className . '\'
         )';
 
-        $result = $this->getConnection()->execute($sql);
+        $result = $this->getDatabaseComponent()->getConnection()->execute($sql);
 
         return $result->isSuccess();
     }
@@ -144,7 +144,7 @@ class BaseOperation extends BaseObject
 
         $sql = 'select * from `' . IMigration::MIGRATION_TABLE_NAME . '`';
 
-        $result = $this->getConnection()->execute($sql);
+        $result = $this->getDatabaseComponent()->getConnection()->execute($sql);
 
         return $result->getData();
     }
@@ -160,7 +160,7 @@ class BaseOperation extends BaseObject
     {
         $sql = 'show tables like "' . IMigration::MIGRATION_TABLE_NAME . '"';
 
-        $data = $this->getConnection()->execute($sql)->getData();
+        $data = $this->getDatabaseComponent()->getConnection()->execute($sql)->getData();
 
         return ! empty($data);
     }
@@ -179,7 +179,7 @@ class BaseOperation extends BaseObject
             `name` varchar(255) not null
         )';
 
-        $result = $this->getConnection()->execute($sql);
+        $result = $this->getDatabaseComponent()->getConnection()->execute($sql);
 
         return $result->isSuccess();
     }

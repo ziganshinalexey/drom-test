@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Core\migration\commands;
 
 use Core\controller\Controller;
-use Core\Core;
+use Core\migration\traits\WithMigrationComponent;
 use Exception;
 
 /**
@@ -13,6 +13,8 @@ use Exception;
  */
 class MigrateController extends Controller
 {
+    use WithMigrationComponent;
+
     /**
      * Метод реализует действие применения миграций.
      *
@@ -22,7 +24,7 @@ class MigrateController extends Controller
      */
     public function actionUp(): void
     {
-        Core::getApplication()->getMigration()->up()->run();
+        $this->getMigrationComponent()->up()->run();
 
         echo 'Миграции успешно применены.' . PHP_EOL;
     }
@@ -36,7 +38,7 @@ class MigrateController extends Controller
      */
     public function actionDown(): void
     {
-        Core::getApplication()->getMigration()->down()->run();
+        $this->getMigrationComponent()->down()->run();
 
         echo 'Миграции успешно отменены.' . PHP_EOL;
     }

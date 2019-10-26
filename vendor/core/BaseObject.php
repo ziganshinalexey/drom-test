@@ -17,11 +17,24 @@ class BaseObject implements IBaseObject
      * @param array $config Конфигурация для конструктора.
      *
      * @return void
+     *
+     * @throws Exception Если свойства не существует.
      */
     public function __construct(array $config = [])
     {
         foreach ($config as $attribute => $value) {
-            $this->$attribute = $value;
+            $setterName = 'set' . ucfirst($attribute);
+            if (method_exists($this, $setterName)) {
+                $this->$setterName($value);
+                continue;
+            }
+
+            if (property_exists($this, $attribute)) {
+                $this->$attribute = $value;
+                continue;
+            }
+
+            throw new Exception('Атрибут ' . $attribute . ' не существует.');
         }
     }
 

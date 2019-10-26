@@ -6,7 +6,7 @@ namespace Core\controller;
 
 use Core\BaseObject;
 use Core\controller\interfaces\IController;
-use Core\Core;
+use Core\response\traits\WithResponseComponent;
 use Exception;
 
 /**
@@ -14,6 +14,7 @@ use Exception;
  */
 class Controller extends BaseObject implements IController
 {
+    use WithResponseComponent;
     /**
      * Свойтсво хранит карту Условное название => Путь к файлу.
      *
@@ -89,7 +90,7 @@ class Controller extends BaseObject implements IController
         $content = ob_get_contents();
         ob_end_clean();
 
-        Core::getApplication()->getResponse()->send($content);
+        $this->getResponseComponent()->send($content);
     }
 
     /**
@@ -104,7 +105,7 @@ class Controller extends BaseObject implements IController
     protected function renderJson(array $paramList = []): void
     {
         $content  = json_encode($paramList);
-        $response = Core::getApplication()->getResponse();
+        $response = $this->getResponseComponent();
         $response->addHeader('Content-Type', 'application/json');
 
         $response->send($content);

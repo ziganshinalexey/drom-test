@@ -16,40 +16,42 @@ use Core\result\DataResult;
 use Core\route\components\Route;
 
 return [
-    'class'     => Application::class,
-    'request'   => [
-        'class' => Request::class,
-    ],
-    'route'     => [
-        'class'         => Route::class,
-        'controllerMap' => [
-            'migrate' => ['class' => MigrateController::class],
+    'class'         => Application::class,
+    'componentList' => [
+        'request'   => [
+            'class' => Request::class,
         ],
-    ],
-    'migration' => [
-        'class'         => Migration::class,
-        'factory'       => [
-            'class'  => MigrationFactory::class,
-            'config' => [
-                MigrationFactory::DOWN_OPERATION => ['class' => DownOperation::class],
-                MigrationFactory::UP_OPERATION   => ['class' => UpOperation::class],
+        'route'     => [
+            'class'         => Route::class,
+            'controllerMap' => [
+                'migrate' => ['class' => MigrateController::class],
             ],
         ],
-        'migrationPath' => dirname(__FILE__, 2) . '/migrations',
-    ],
-    'db'        => [
-        'class'   => DataBase::class,
-        'factory' => [
-            'class'  => DBFactory::class,
-            'config' => [
-                DBFactory::CONNECTION => [
-                    'class'    => Connection::class,
-                    'host'     => 'db',
-                    'username' => 'root',
-                    'passwd'   => '123',
-                    'dbname'   => 'todo',
+        'migration' => [
+            'class'         => Migration::class,
+            'factory'       => [
+                'class'  => MigrationFactory::class,
+                'config' => [
+                    MigrationFactory::DOWN_OPERATION => ['class' => DownOperation::class],
+                    MigrationFactory::UP_OPERATION   => ['class' => UpOperation::class],
                 ],
-                DBFactory::RESULT     => ['class' => DataResult::class],
+            ],
+            'migrationPath' => dirname(__FILE__, 2) . '/migrations',
+        ],
+        'db'        => [
+            'class'   => DataBase::class,
+            'factory' => [
+                'class'  => DBFactory::class,
+                'config' => [
+                    DBFactory::CONNECTION => [
+                        'class'    => Connection::class,
+                        'host'     => 'db',
+                        'username' => 'root',
+                        'passwd'   => '123',
+                        'dbname'   => 'todo',
+                    ],
+                    DBFactory::RESULT     => ['class' => DataResult::class],
+                ],
             ],
         ],
     ],

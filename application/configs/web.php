@@ -16,40 +16,42 @@ use Core\route\components\Route;
 $appDirectory = dirname(__FILE__, 2);
 
 return [
-    'class'    => Application::class,
-    'request'  => [
-        'class'            => Request::class,
-        'defaultRouteName' => 'todo/index',
-        'parserList'       => [
-            'application/json' => ['class' => JsonParser::class],
+    'class'         => Application::class,
+    'componentList' => [
+        'request'  => [
+            'class'            => Request::class,
+            'defaultRouteName' => 'todo/index',
+            'parserList'       => [
+                'application/json' => ['class' => JsonParser::class],
+            ],
         ],
-    ],
-    'route'    => [
-        'class'         => Route::class,
-        'controllerMap' => [
-            'todo' => [
-                'class'   => TodoController::class,
-                'viewMap' => [
-                    'index' => $appDirectory . '/views/site/index.php',
+        'route'    => [
+            'class'         => Route::class,
+            'controllerMap' => [
+                'todo' => [
+                    'class'   => TodoController::class,
+                    'viewMap' => [
+                        'index' => $appDirectory . '/views/site/index.php',
+                    ],
                 ],
             ],
         ],
-    ],
-    'db'       => [
-        'class'   => DataBase::class,
-        'factory' => [
-            'class'  => DBFactory::class,
-            'config' => [
-                DBFactory::CONNECTION => [
-                    'class'    => Connection::class,
-                    'host'     => 'db',
-                    'username' => 'root',
-                    'passwd'   => '123',
-                    'dbname'   => 'todo',
+        'db'       => [
+            'class'   => DataBase::class,
+            'factory' => [
+                'class'  => DBFactory::class,
+                'config' => [
+                    DBFactory::CONNECTION => [
+                        'class'    => Connection::class,
+                        'host'     => 'db',
+                        'username' => 'root',
+                        'passwd'   => '123',
+                        'dbname'   => 'todo',
+                    ],
+                    DBFactory::RESULT     => ['class' => DataResult::class],
                 ],
-                DBFactory::RESULT     => ['class' => DataResult::class],
             ],
         ],
+        'response' => ['class' => Response::class],
     ],
-    'response' => ['class' => Response::class],
 ];

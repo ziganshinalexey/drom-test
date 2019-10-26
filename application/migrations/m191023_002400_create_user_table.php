@@ -1,6 +1,5 @@
 <?php
 
-use Core\Core;
 use Core\migration\AbstractMigrationModel;
 
 class m191023_002400_create_user_table extends AbstractMigrationModel
@@ -14,7 +13,7 @@ class m191023_002400_create_user_table extends AbstractMigrationModel
      */
     public function up(): void
     {
-        $connection = Core::getApplication()->getDb()->getConnection();
+        $connection = $this->getDatabaseComponent()->getConnection();
 
         $query = 'create table `user` (
             `id` int primary key auto_increment,
@@ -37,7 +36,7 @@ class m191023_002400_create_user_table extends AbstractMigrationModel
      */
     public function down(): void
     {
-        $connection = Core::getApplication()->getDb()->getConnection();
+        $connection = $this->getDatabaseComponent()->getConnection();
 
         $query = 'drop table `user`';
 

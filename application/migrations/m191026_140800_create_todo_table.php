@@ -1,6 +1,5 @@
 <?php
 
-use Core\Core;
 use Core\migration\AbstractMigrationModel;
 
 class m191026_140800_create_todo_table extends AbstractMigrationModel
@@ -14,7 +13,7 @@ class m191026_140800_create_todo_table extends AbstractMigrationModel
      */
     public function up(): void
     {
-        $connection = Core::getApplication()->getDb()->getConnection();
+        $connection = $this->getDatabaseComponent()->getConnection();
 
         $query = 'create table `todo` (
             `id` int primary key auto_increment,
@@ -34,7 +33,7 @@ class m191026_140800_create_todo_table extends AbstractMigrationModel
      */
     public function down(): void
     {
-        $connection = Core::getApplication()->getDb()->getConnection();
+        $connection = $this->getDatabaseComponent()->getConnection();
 
         $query = 'drop table `todo`';
 

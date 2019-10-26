@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Core\migration;
 
 use Core\BaseObject;
+use Core\db\traits\WithDatabaseComponent;
 use Core\migration\interfaces\IMigrationModel;
 
 /**
@@ -12,6 +13,8 @@ use Core\migration\interfaces\IMigrationModel;
  */
 abstract class AbstractMigrationModel extends BaseObject implements IMigrationModel
 {
+    use WithDatabaseComponent;
+
     /**
      * Метод накатывает миграцию.
      *

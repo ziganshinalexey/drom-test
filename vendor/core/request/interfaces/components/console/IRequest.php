@@ -4,11 +4,15 @@ declare(strict_types = 1);
 
 namespace Core\request\interfaces\components\console;
 
+use Core\application\interfaces\IComponent;
+
 /**
  * Интерфейс IRequest объявляет методы компонента.
  */
-interface IRequest
+interface IRequest extends IComponent
 {
+    public const COMPONENT_NAME = 'request';
+
     /**
      * Метод возвращает путь обращения.
      *

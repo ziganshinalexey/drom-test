@@ -4,10 +4,8 @@ declare(strict_types = 1);
 
 namespace Core\application\interfaces\console;
 
-use Core\db\interfaces\IDatabase;
-use Core\migration\interfaces\IMigration;
-use Core\request\interfaces\components\console\IRequest;
-use Core\route\interfaces\IRoute;
+use Core\application\interfaces\IComponent;
+use Exception;
 
 /**
  * Интерфейс IApplication объявляет методы приложения.
@@ -22,30 +20,13 @@ interface IApplication
     public function run(): void;
 
     /**
-     * Метод возвращает компонент запросов.
+     * Метод возвращает компонент по его названию.
      *
-     * @return IRequest
-     */
-    public function getRequest(): IRequest;
-
-    /**
-     * Метод возвращает компонент роутинга.
+     * @param string $name Название компонента.
      *
-     * @return IRoute
-     */
-    public function getRoute(): IRoute;
-
-    /**
-     * Метод возвращает компонент миграций.
+     * @return IComponent
      *
-     * @return IMigration
+     * @throws Exception
      */
-    public function getMigration(): IMigration;
-
-    /**
-     * Метод возвращает компонент БД.
-     *
-     * @return IDatabase
-     */
-    public function getDb(): IDatabase;
+    public function getComponent(string $name): IComponent;
 }
