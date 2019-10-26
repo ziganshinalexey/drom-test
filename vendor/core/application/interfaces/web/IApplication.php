@@ -6,6 +6,7 @@ namespace Core\application\interfaces\web;
 
 use Core\db\interfaces\IDatabase;
 use Core\request\interfaces\web\IRequest;
+use Core\response\interfaces\IResponse;
 use Core\route\interfaces\IRoute;
 
 /**
@@ -40,4 +41,12 @@ interface IApplication
      * @return IDatabase
      */
     public function getDb(): IDatabase;
+
+    /**
+     * Метод возвращает компонент запросов.
+     *
+     * @return IResponse
+     */
+    public function getResponse(): IResponse;
+
 }

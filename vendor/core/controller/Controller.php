@@ -6,6 +6,7 @@ namespace Core\controller;
 
 use Core\BaseObject;
 use Core\controller\interfaces\IController;
+use Core\Core;
 use Exception;
 
 /**
@@ -83,6 +84,29 @@ class Controller extends BaseObject implements IController
         }
 
         extract($paramList, EXTR_OVERWRITE);
+        ob_start();
         require_once $viewPath;
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        Core::getApplication()->getResponse()->send($content);
+    }
+
+    /**
+     * Метод рендера json документа.
+     *
+     * @param array $paramList Список параметров для рендера страницы.
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    protected function renderJson(array $paramList = []): void
+    {
+        $content  = json_encode($paramList);
+        $response = Core::getApplication()->getResponse();
+        $response->addHeader('Content-Type', 'application/json');
+
+        $response->send($content);
     }
 }

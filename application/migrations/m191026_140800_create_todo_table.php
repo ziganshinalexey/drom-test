@@ -3,7 +3,7 @@
 use Core\Core;
 use Core\migration\AbstractMigrationModel;
 
-class m191023_002400_create_user_table extends AbstractMigrationModel
+class m191026_140800_create_todo_table extends AbstractMigrationModel
 {
     /**
      * Метод накатывает миграцию.
@@ -16,13 +16,10 @@ class m191023_002400_create_user_table extends AbstractMigrationModel
     {
         $connection = Core::getApplication()->getDb()->getConnection();
 
-        $query = 'create table `user` (
+        $query = 'create table `todo` (
             `id` int primary key auto_increment,
-            `login` varchar(50) not null unique ,
-            `password` varchar(50) not null,
-            `accessToken` varchar(32) not null,
-            `firstName` varchar(50) not null,
-            `lastName` varchar(50) not null
+            `name` varchar(255) not null,
+            `isComplited` boolean not null
         )';
 
         $connection->execute($query);
@@ -39,7 +36,7 @@ class m191023_002400_create_user_table extends AbstractMigrationModel
     {
         $connection = Core::getApplication()->getDb()->getConnection();
 
-        $query = 'drop table `user`';
+        $query = 'drop table `todo`';
 
         $connection->execute($query);
     }

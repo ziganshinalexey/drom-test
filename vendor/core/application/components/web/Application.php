@@ -7,6 +7,7 @@ namespace Core\application\components\web;
 use Core\application\components\BaseApplication;
 use Core\application\interfaces\web\IApplication;
 use Core\request\interfaces\web\IRequest;
+use Core\response\interfaces\IResponse;
 use Exception;
 
 /**
@@ -20,6 +21,12 @@ class Application extends BaseApplication implements IApplication
      * @var IRequest|null
      */
     protected $requestComponent;
+    /**
+     * Свойство хранит объект компонента овтета.
+     *
+     * @var IResponse|null
+     */
+    protected $responseComponent;
 
     /**
      * Метод исполнения заветных желаний.
@@ -66,5 +73,35 @@ class Application extends BaseApplication implements IApplication
         }
 
         return $this->requestComponent;
+    }
+
+    /**
+     * Метод возвращает компонент запросов.
+     *
+     * @param IResponse $value Новое значение.
+     *
+     * @return void
+     *
+     * @throws Exception Если класс фабрики отсутствует.
+     */
+    public function setResponse(IResponse $value): void
+    {
+        $this->responseComponent = $value;
+    }
+
+    /**
+     * Метод возвращает компонент запросов.
+     *
+     * @return IResponse
+     *
+     * @throws Exception
+     */
+    public function getResponse(): IResponse
+    {
+        if (null === $this->responseComponent) {
+            throw new Exception('Компонент отсутствует.');
+        }
+
+        return $this->responseComponent;
     }
 }

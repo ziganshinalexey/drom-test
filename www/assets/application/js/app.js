@@ -52,7 +52,7 @@ const ENTER_KEY_CODE = 13;
         jquery(input).val(null);
     });
 
-    jquery.ajax('/mocks/todos/list.json').done(function (data) {
+    jquery.ajax('/todo/list').done(function (data) {
         console.log(data);
         data.data.forEach(function (item) {
             createItem(item);
