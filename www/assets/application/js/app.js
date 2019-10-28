@@ -3,6 +3,8 @@ const LIST_URL = '/todo/list';
 const CREATE_URL = '/todo/create';
 const REMOVE_URL = '/todo/remove';
 const UPDATE_URL = '/todo/update';
+const TOGGLE_URL = '/todo/toggle';
+const CLEAR_URL = '/todo/clear';
 
 (function (window, jquery) {
     const $todoList = jquery('.todo-list');
@@ -23,6 +25,14 @@ const UPDATE_URL = '/todo/update';
         sendCreateRequest(data);
 
         jquery(input).val(null);
+    });
+
+    jquery('.clear-completed').on('click', function (event) {
+        sendClearRequest();
+    });
+
+    jquery('.toggle-all').on('click', function (event) {
+        sendToggleRequest(jquery(event.currentTarget).prop('checked'));
     });
 
     jquery('.filter').on('click', function (event) {
@@ -48,6 +58,11 @@ const UPDATE_URL = '/todo/update';
                 jquery(item).remove();
             });
 
+            const isAllCompleted = Boolean(data.data.length) && data.data.every(function (item) {
+                return item.isCompleted;
+            });
+            jquery('.toggle-all').prop('checked', isAllCompleted);
+
             data.data.forEach(function (item) {
                 createItem(item);
             });
@@ -64,11 +79,8 @@ const UPDATE_URL = '/todo/update';
             data: JSON.stringify(data)
         };
 
-        return jquery.ajax(request).done(function (data) {
-            const responseObject = data.data;
-            if (responseObject) {
-                createItem(responseObject);
-            }
+        return jquery.ajax(request).done(function () {
+            sendIndexRequest(jquery('button.selected').val());
         });
     }
 
@@ -81,7 +93,9 @@ const UPDATE_URL = '/todo/update';
             data: JSON.stringify(data)
         };
 
-        return jquery.ajax(request);
+        return jquery.ajax(request).done(function () {
+            sendIndexRequest(jquery('button.selected').val());
+        });
     }
 
     function sendRemoveRequest (id) {
@@ -96,6 +110,30 @@ const UPDATE_URL = '/todo/update';
                 removeItem(id);
                 calculateItems();
             }
+        });
+    }
+
+    function sendClearRequest () {
+        const request = {
+            url: CLEAR_URL,
+        };
+
+        return jquery.ajax(request).done(function () {
+            sendIndexRequest(jquery('button.selected').val());
+        });
+    }
+
+    function sendToggleRequest (isCompleted) {
+        const request = {
+            url: TOGGLE_URL,
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({isCompleted: isCompleted})
+        };
+
+        return jquery.ajax(request).done(function () {
+            sendIndexRequest(jquery('button.selected').val());
         });
     }
 

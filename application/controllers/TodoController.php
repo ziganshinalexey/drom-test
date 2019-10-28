@@ -123,7 +123,7 @@ class TodoController extends Controller
      */
     public function actionToggle(): void
     {
-        $form = $this->getTodoComponent()->updateOne();
+        $form = $this->getTodoComponent()->updateMany();
         $form->load($this->getRequestComponent()->post());
         $result = $form->run();
 

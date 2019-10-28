@@ -56,8 +56,8 @@ class UpdateManyForm extends BaseForm implements IForm
     {
         $result = $this->getResult();
 
-        $this->getQuery()->update(['isCompleted' => true], ['isCompleted' => false]);
-        $this->getQuery()->update(['isCompleted' => false], ['isCompleted' => $this->getIsCompleted()]);
+        $this->getQuery()->update(['isCompleted' => 1], ['isCompleted' => 0]);
+        $this->getQuery()->update(['isCompleted' => 0], ['isCompleted' => $this->getIsCompleted()]);
 
         return $result;
     }
