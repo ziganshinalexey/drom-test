@@ -79,4 +79,20 @@ class TodoController extends Controller
             'data' => ['isSuccess' => $result->getData()['success'] ?? false],
         ]);
     }
+
+    /**
+     * Метод возвращает список действия.
+     *
+     * @throws Exception
+     */
+    public function actionUpdate(): void
+    {
+        $form = $this->getTodoComponent()->update();
+        $form->load($this->getRequestComponent()->post());
+        $result = $form->run();
+
+        $this->renderJson([
+            'data' => $result->getData(),
+        ]);
+    }
 }

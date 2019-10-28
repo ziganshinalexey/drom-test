@@ -56,6 +56,27 @@ class UpdateForm extends BaseForm implements IForm
      */
     public function run(): IDataResult
     {
-        return $this->getResult();
+        $result = $this->getResult();
+
+        $data = $this->getUpdateData();
+        $this->getQuery()->update(['id' => $this->getId()], $data);
+
+        $data['id'] = $this->getId();
+        $result->setData($data);
+
+        return $result;
+    }
+
+    /**
+     * Метод формирует данные для редактирования.
+     *
+     * @return array
+     */
+    protected function getUpdateData(): array
+    {
+        return [
+            'name'        => $this->getName(),
+            'isCompleted' => $this->getIsCompleted(),
+        ];
     }
 }

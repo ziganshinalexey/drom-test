@@ -25,7 +25,7 @@ abstract class BaseForm extends BaseObject implements IForm
     {
         foreach ($data as $attributeName => $value) {
             if (property_exists($this, $attributeName)) {
-                return $this->$attributeName = $value;
+                $this->$attributeName = $value;
             }
         }
 

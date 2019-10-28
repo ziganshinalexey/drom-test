@@ -51,4 +51,14 @@ interface IQuery
      * @return IDataResult
      */
     public function delete(array $condition): IDataResult;
+
+    /**
+     * Метод удаляет записи из БД.
+     *
+     * @param array $condition Условие удаления.
+     * @param array $data      Новое значение.
+     *
+     * @return IDataResult
+     */
+    public function update(array $condition, array $data): IDataResult;
 }

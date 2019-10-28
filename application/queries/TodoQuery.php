@@ -25,6 +25,47 @@ class TodoQuery extends BaseObject implements IQuery
      * Метод удаляет записи из БД.
      *
      * @param array $condition Условие удаления.
+     * @param array $data      Новое значение.
+     *
+     * @return IDataResult
+     *
+     * @throws Exception
+     */
+    public function update(array $condition, array $data): IDataResult
+    {
+        $connection = $this->getDatabaseComponent()->getConnection();
+
+        $conditionList = [];
+        foreach ($condition as $columnName => $value) {
+            $columnName = sprintf('`%s`', $connection->escapeString($columnName));
+            $value      = is_string($value) ? sprintf('"%s"', $connection->escapeString($value)) : $value;
+
+            $conditionList[] = sprintf('%s = %s', $columnName, $value);
+        }
+
+        $dataList = [];
+        foreach ($data as $columnName => $value) {
+            $columnName = sprintf('`%s`', $connection->escapeString($columnName));
+            $value      = is_string($value) ? sprintf('"%s"', $connection->escapeString($value)) : $value;
+
+            $dataList[] = sprintf('%s = %s', $columnName, $value);
+        }
+
+        if (empty($conditionList) || empty($dataList)) {
+            throw new Exception('Список данных пуст.');
+        }
+
+        $conditionList = implode(' and ', $conditionList);
+        $dataList      = implode(',', $dataList);
+        $sql           = sprintf('update `%s` set %s where %s', $this->getTableName(), $dataList, $conditionList);
+
+        return $connection->execute($sql);
+    }
+
+    /**
+     * Метод удаляет записи из БД.
+     *
+     * @param array $condition Условие удаления.
      *
      * @return IDataResult
      *

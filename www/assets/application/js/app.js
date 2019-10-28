@@ -2,6 +2,7 @@ const ENTER_KEY_CODE = 13;
 const LIST_URL = '/todo/list';
 const CREATE_URL = '/todo/create';
 const REMOVE_URL = '/todo/remove';
+const UPDATE_URL = '/todo/update';
 
 (function (window, jquery) {
     const $todoList = jquery('.todo-list');
@@ -71,6 +72,18 @@ const REMOVE_URL = '/todo/remove';
         });
     }
 
+    function sendUpdateRequest (data) {
+        const request = {
+            url: UPDATE_URL,
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(data)
+        };
+
+        return jquery.ajax(request);
+    }
+
     function sendRemoveRequest (id) {
         const request = {
             url: REMOVE_URL,
@@ -134,6 +147,8 @@ const REMOVE_URL = '/todo/remove';
                 name: $input.val(),
                 isCompleted: item.isCompleted,
             };
+
+            sendUpdateRequest(data);
         });
 
         $todoItem.find('.toggle').on('change', function (event) {
@@ -145,6 +160,8 @@ const REMOVE_URL = '/todo/remove';
                 name: item.name,
                 isCompleted: $target.prop('checked'),
             };
+
+            sendUpdateRequest(data);
         });
 
         $todoItem.find('.destroy').on('click', function (event) {
