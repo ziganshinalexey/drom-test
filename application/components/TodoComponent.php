@@ -27,7 +27,7 @@ class TodoComponent extends BaseObject implements IComponent
      *
      * @throws Exception
      */
-    public function find(): IForm
+    public function findMany(): IForm
     {
         return $this->getFactory()->getFindForm();
     }
@@ -39,7 +39,7 @@ class TodoComponent extends BaseObject implements IComponent
      *
      * @throws Exception
      */
-    public function create(): IForm
+    public function createOne(): IForm
     {
         return $this->getFactory()->getCreateForm();
     }
@@ -51,7 +51,7 @@ class TodoComponent extends BaseObject implements IComponent
      *
      * @throws Exception
      */
-    public function update(): IForm
+    public function updateOne(): IForm
     {
         return $this->getFactory()->getUpdateForm();
     }
@@ -63,7 +63,7 @@ class TodoComponent extends BaseObject implements IComponent
      *
      * @throws Exception
      */
-    public function remove(): IForm
+    public function removeOne(): IForm
     {
         return $this->getFactory()->getRemoveForm();
     }

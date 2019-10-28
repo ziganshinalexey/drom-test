@@ -38,7 +38,7 @@ class TodoController extends Controller
     {
         $isCompleted = $this->getRequestComponent()->getByKey('isCompleted');
 
-        $form = $this->getTodoComponent()->find();
+        $form = $this->getTodoComponent()->findMany();
         if (null !== $isCompleted) {
             $form->setIsCompleted((bool)$isCompleted);
         }
@@ -54,7 +54,7 @@ class TodoController extends Controller
      */
     public function actionCreate(): void
     {
-        $form = $this->getTodoComponent()->create();
+        $form = $this->getTodoComponent()->createOne();
 
         $form->load($this->getRequestComponent()->post());
         $result = $form->run();
@@ -76,7 +76,7 @@ class TodoController extends Controller
             throw new Exception('Сущность не найдена.');
         }
 
-        $form = $this->getTodoComponent()->remove();
+        $form = $this->getTodoComponent()->removeOne();
         $form->setId((int)$id);
         $result = $form->run();
 
@@ -92,7 +92,7 @@ class TodoController extends Controller
      */
     public function actionUpdate(): void
     {
-        $form = $this->getTodoComponent()->update();
+        $form = $this->getTodoComponent()->updateOne();
         $form->load($this->getRequestComponent()->post());
         $result = $form->run();
 

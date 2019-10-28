@@ -66,14 +66,6 @@ return [
                 'class'  => TodoFactory::class,
                 'config' => [
                     TodoFactory::FIND_FORM   => [
-                        'class'  => TodoCreateOneForm::class,
-                        'result' => ['class' => DataResult::class],
-                        'query'  => [
-                            'class'     => TodoQuery::class,
-                            'tableName' => 'todo',
-                        ],
-                    ],
-                    TodoFactory::CREATE_FORM => [
                         'class'  => TodoFindManyForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
@@ -81,8 +73,16 @@ return [
                             'tableName' => 'todo',
                         ],
                     ],
+                    TodoFactory::CREATE_FORM => [
+                        'class'  => TodoCreateOneForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => TodoQuery::class,
+                            'tableName' => 'todo',
+                        ],
+                    ],
                     TodoFactory::UPDATE_FORM => [
-                        'class'  => TodoRemoveOneForm::class,
+                        'class'  => TodoUpdateOneForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
                             'class'     => TodoQuery::class,
@@ -90,7 +90,7 @@ return [
                         ],
                     ],
                     TodoFactory::REMOVE_FORM => [
-                        'class'  => TodoUpdateOneForm::class,
+                        'class'  => TodoRemoveOneForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
                             'class'     => TodoQuery::class,

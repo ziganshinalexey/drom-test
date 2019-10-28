@@ -20,26 +20,26 @@ interface IComponent extends IBaseObject, IBaseComponent
      *
      * @return IForm
      */
-    public function find(): IForm;
+    public function findMany(): IForm;
 
     /**
      * Метод возвращает форму создания.
      *
      * @return IForm
      */
-    public function create(): IForm;
+    public function createOne(): IForm;
 
     /**
      * Метод возвращает форму редактирования.
      *
      * @return IForm
      */
-    public function update(): IForm;
+    public function updateOne(): IForm;
 
     /**
      * Метод возвращает форму удаления.
      *
      * @return IForm
      */
-    public function remove(): IForm;
+    public function removeOne(): IForm;
 }
