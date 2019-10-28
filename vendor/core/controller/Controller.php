@@ -106,7 +106,7 @@ class Controller extends BaseObject implements IController
      */
     protected function renderJson(array $paramList = []): void
     {
-        $content  = json_encode($paramList);
+        $content  = json_encode($paramList, JSON_UNESCAPED_UNICODE);
         $response = $this->getResponseComponent();
         $response->addHeader('Content-Type', 'application/json');
 

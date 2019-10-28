@@ -9,7 +9,8 @@ const REMOVE_URL = '/todo/remove';
     jquery.ajax(LIST_URL).done(function (data) {
         data.data.forEach(function (item) {
             createItem(item);
-        })
+        });
+        calculateItems();
     });
 
     jquery('.new-todo').on('keypress', function (event) {
@@ -29,7 +30,7 @@ const REMOVE_URL = '/todo/remove';
     });
 
     function sendCreateRequest (data) {
-        request = {
+        const request = {
             url: CREATE_URL,
             type: 'post',
             dataType: 'json',
@@ -38,11 +39,32 @@ const REMOVE_URL = '/todo/remove';
         };
 
         return jquery.ajax(request).done(function (data) {
-            responseObject = data.data;
+            const responseObject = data.data;
             if (responseObject) {
                 createItem(responseObject);
             }
         });
+    }
+
+    function sendRemoveRequest (id) {
+        const request = {
+            url: REMOVE_URL,
+            data: {id: id}
+        };
+
+        return jquery.ajax(request).done(function (data) {
+            const isSuccess = data.data.isSuccess;
+            console.log(isSuccess);
+            if (isSuccess) {
+                removeItem(id);
+                calculateItems();
+            }
+        });
+    }
+
+    function removeItem (id) {
+        const $li = jquery('.item-' + id);
+        $li.remove();
     }
 
     function createItem (item) {
@@ -65,9 +87,10 @@ const REMOVE_URL = '/todo/remove';
         });
 
         $todoItem.find('.destroy').on('click', function (event) {
-            // TODO: do ajax
-            $todoItem.remove();
-            calculateItems();
+            const className = $todoItem.attr('class');
+            const id = className.substr(className.indexOf('-') + 1);
+
+            sendRemoveRequest(id);
         });
 
         $todoList.append($todoItem);

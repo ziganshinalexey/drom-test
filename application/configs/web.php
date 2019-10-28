@@ -2,7 +2,14 @@
 
 declare(strict_types = 1);
 
+use App\components\TodoComponent;
 use App\controllers\TodoController;
+use App\factories\TodoFactory;
+use App\forms\todo\CreateForm as TodoCreateForm;
+use App\forms\todo\FindForm as TodoFindForm;
+use App\forms\todo\RemoveForm as TodoRemoveForm;
+use App\forms\todo\UpdateForm as TodoUpdateForm;
+use App\queries\TodoQuery;
 use Core\application\components\web\Application;
 use Core\db\components\DataBase;
 use Core\db\factories\Factory as DBFactory;
@@ -18,14 +25,14 @@ $appDirectory = dirname(__FILE__, 2);
 return [
     'class'         => Application::class,
     'componentList' => [
-        'request'  => [
+        Request::COMPONENT_NAME       => [
             'class'            => Request::class,
             'defaultRouteName' => 'todo/index',
             'parserList'       => [
                 'application/json' => ['class' => JsonParser::class],
             ],
         ],
-        'route'    => [
+        Route::COMPONENT_NAME         => [
             'class'         => Route::class,
             'controllerMap' => [
                 'todo' => [
@@ -36,7 +43,7 @@ return [
                 ],
             ],
         ],
-        'db'       => [
+        DataBase::COMPONENT_NAME      => [
             'class'   => DataBase::class,
             'factory' => [
                 'class'  => DBFactory::class,
@@ -52,6 +59,46 @@ return [
                 ],
             ],
         ],
-        'response' => ['class' => Response::class],
+        Response::COMPONENT_NAME      => ['class' => Response::class],
+        TodoComponent::COMPONENT_NAME => [
+            'class'   => TodoComponent::class,
+            'factory' => [
+                'class'  => TodoFactory::class,
+                'config' => [
+                    TodoFactory::FIND_FORM   => [
+                        'class'  => TodoFindForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => TodoQuery::class,
+                            'tableName' => 'todo',
+                        ],
+                    ],
+                    TodoFactory::CREATE_FORM => [
+                        'class'  => TodoCreateForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => TodoQuery::class,
+                            'tableName' => 'todo',
+                        ],
+                    ],
+                    TodoFactory::UPDATE_FORM => [
+                        'class'  => TodoUpdateForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => TodoQuery::class,
+                            'tableName' => 'todo',
+                        ],
+                    ],
+                    TodoFactory::REMOVE_FORM => [
+                        'class'  => TodoRemoveForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => TodoQuery::class,
+                            'tableName' => 'todo',
+                        ],
+                    ],
+                ],
+            ],
+        ],
     ],
 ];

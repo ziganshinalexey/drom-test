@@ -18,16 +18,16 @@ use Core\route\components\Route;
 return [
     'class'         => Application::class,
     'componentList' => [
-        'request'   => [
+        Request::COMPONENT_NAME   => [
             'class' => Request::class,
         ],
-        'route'     => [
+        'route'                   => [
             'class'         => Route::class,
             'controllerMap' => [
                 'migrate' => ['class' => MigrateController::class],
             ],
         ],
-        'migration' => [
+        Migration::COMPONENT_NAME => [
             'class'         => Migration::class,
             'factory'       => [
                 'class'  => MigrationFactory::class,
@@ -38,7 +38,7 @@ return [
             ],
             'migrationPath' => dirname(__FILE__, 2) . '/migrations',
         ],
-        'db'        => [
+        DataBase::COMPONENT_NAME  => [
             'class'   => DataBase::class,
             'factory' => [
                 'class'  => DBFactory::class,

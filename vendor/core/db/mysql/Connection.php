@@ -44,8 +44,32 @@ class Connection extends mysqli implements IConnection
         if ($data instanceof mysqli_result) {
             $arrayData = (array)$data->fetch_all(MYSQLI_ASSOC);
             $result->setData($arrayData);
+        } else {
+            $result->setData(['success' => $data]);
         }
 
         return $result;
+    }
+
+    /**
+     * Метод экранирует строку для MySQL.
+     *
+     * @param string $value Строка для экранизации.
+     *
+     * @return string
+     */
+    public function escapeString(string $value): string
+    {
+        return $this->real_escape_string($value);
+    }
+
+    /**
+     * Метод возвращает идентификатор последней созданной записи.
+     *
+     * @return int|null
+     */
+    public function getLastInsertId(): ?int
+    {
+        return $this->insert_id;
     }
 }

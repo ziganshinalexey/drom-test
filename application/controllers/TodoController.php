@@ -2,8 +2,10 @@
 
 namespace App\controllers;
 
+use App\traits\WithTodoComponent;
 use Core\controller\Controller;
 use Core\db\traits\WithDatabaseComponent;
+use Core\request\traits\web\WithRequestComponent;
 use Exception;
 
 /**
@@ -12,6 +14,8 @@ use Exception;
 class TodoController extends Controller
 {
     use WithDatabaseComponent;
+    use WithTodoComponent;
+    use WithRequestComponent;
 
     /**
      * Метод выполняет действие по-умолчанию.
@@ -28,15 +32,12 @@ class TodoController extends Controller
     /**
      * Метод возвращает список действия.
      *
-     * @todo: является черновым.
-     *
      * @throws Exception
      */
     public function actionList(): void
     {
-        $sql = 'select * from `todo`';
-
-        $result = $this->getDatabaseComponent()->getConnection()->execute($sql);
+        $form   = $this->getTodoComponent()->find();
+        $result = $form->run();
 
         $this->renderJson(['data' => $result->getData()]);
     }
@@ -44,17 +45,38 @@ class TodoController extends Controller
     /**
      * Метод возвращает список действия.
      *
-     * @todo: является черновым.
-     *
      * @throws Exception
      */
     public function actionCreate(): void
     {
-        $data       = $this->getRequestComponent()->post();
-        $data['id'] = random_int(1, 3254234);
+        $form = $this->getTodoComponent()->create();
+
+        $form->load($this->getRequestComponent()->post());
+        $result = $form->run();
 
         $this->renderJson([
-            'data' => $data,
+            'data' => $result->getData(),
+        ]);
+    }
+
+    /**
+     * Метод возвращает список действия.
+     *
+     * @throws Exception
+     */
+    public function actionRemove(): void
+    {
+        $id = $this->getRequestComponent()->getByKey('id');
+        if (null === $id) {
+            throw new Exception('Сущность не найдена.');
+        }
+
+        $form = $this->getTodoComponent()->remove();
+        $form->setId((int)$id);
+        $result = $form->run();
+
+        $this->renderJson([
+            'data' => ['isSuccess' => $result->getData()['success'] ?? false],
         ]);
     }
 }
