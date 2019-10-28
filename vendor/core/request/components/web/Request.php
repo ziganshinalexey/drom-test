@@ -58,7 +58,7 @@ class Request extends BaseObject implements IRequest
      */
     public function getByKey(string $key): ?string
     {
-        return (string)$_GET[$key] ?? null;
+        return isset($_GET[$key]) ? (string)$_GET[$key] : null;
     }
 
     /**

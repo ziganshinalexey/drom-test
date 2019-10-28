@@ -16,6 +16,34 @@ use Exception;
 class FindForm extends BaseForm implements IForm
 {
     use WithQueryTrait;
+    /**
+     * Свойство хранит признак выполнености.
+     *
+     * @var bool|null
+     */
+    protected $isCompleted;
+
+    /**
+     * Метод задает признак выполнености.
+     *
+     * @param bool|null $value Новое значение.
+     *
+     * @return void
+     */
+    public function setIsCompleted(?bool $value): void
+    {
+        $this->isCompleted = $value;
+    }
+
+    /**
+     * Метод возвращает признак выполнености.
+     *
+     * @return int|null
+     */
+    public function getIsCompleted(): ?int
+    {
+        return null === $this->isCompleted ? null : (int)$this->isCompleted;
+    }
 
     /**
      * Метод реализует основное действие формы.
@@ -47,6 +75,11 @@ class FindForm extends BaseForm implements IForm
         $result = [];
 
         foreach ($data as $todoData) {
+            $isCompleted = (bool)$todoData['isCompleted'] ?? null;
+            if (null !== $this->getIsCompleted() && $this->getIsCompleted() !== (int)$isCompleted) {
+                continue;
+            }
+
             $result[] = [
                 'id'          => (int)$todoData['id'] ?? null,
                 'name'        => (string)$todoData['name'] ?? null,

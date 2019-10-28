@@ -36,7 +36,12 @@ class TodoController extends Controller
      */
     public function actionList(): void
     {
-        $form   = $this->getTodoComponent()->find();
+        $isCompleted = $this->getRequestComponent()->getByKey('isCompleted');
+
+        $form = $this->getTodoComponent()->find();
+        if (null !== $isCompleted) {
+            $form->setIsCompleted((bool)$isCompleted);
+        }
         $result = $form->run();
 
         $this->renderJson(['data' => $result->getData()]);
