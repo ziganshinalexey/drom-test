@@ -24,11 +24,29 @@ const REMOVE_URL = '/todo/remove';
         jquery(input).val(null);
     });
 
+    jquery('.filter').on('click', function (event) {
+        const $buttonList = jquery('.filter');
+        $buttonList.each(function (index, item) {
+            jquery(item).removeClass('selected');
+        });
+
+        const $currentButton = jquery(event.currentTarget);
+        const isCompleted = event.currentTarget.value;
+        $currentButton.toggleClass('selected');
+
+        sendIndexRequest(isCompleted);
+    });
+
     function sendIndexRequest (isCompleted) {
         jquery.ajax({
             url: LIST_URL,
-            data: {isCompleted}
+            data: '' === isCompleted ? null : {isCompleted}
         }).done(function (data) {
+            const $list = jquery('.todo-list li');
+            $list.each(function (index, item) {
+                jquery(item).remove();
+            });
+
             data.data.forEach(function (item) {
                 createItem(item);
             });
@@ -61,7 +79,6 @@ const REMOVE_URL = '/todo/remove';
 
         return jquery.ajax(request).done(function (data) {
             const isSuccess = data.data.isSuccess;
-            console.log(isSuccess);
             if (isSuccess) {
                 removeItem(id);
                 calculateItems();
@@ -82,22 +99,56 @@ const REMOVE_URL = '/todo/remove';
                     <label>${item.name}</label>
                     <button class="destroy"></button>
                 </div>
-                <input class="edit" value="Rule the web">
+                <input class="edit" value="${item.name}">
             </li>
         `;
         const $todoItem = jquery(template);
 
+        $todoItem.find('label').on('dblclick', function (event) {
+            const $list = jquery('.todo-list li');
+            $list.each(function (index, item) {
+                jquery(item).removeClass('editing');
+            });
+            const $li = $(this).parents('li');
+            $li.toggleClass('editing');
+
+            const $input = $li.find('.edit');
+            const thisVal = $input.val();
+            $input.val('').val(thisVal);
+            $input.focus();
+        });
+
+        $todoItem.find('.edit').on('keypress', function (event) {
+            if (ENTER_KEY_CODE !== event.keyCode) {
+                return;
+            }
+
+            const $input = jquery(event.currentTarget);
+            const $li = $input.parent();
+            $li.toggleClass('editing');
+
+            const $label = $li.find('label').text($input.val());
+
+            const data = {
+                id: item.id,
+                name: $input.val(),
+                isCompleted: item.isCompleted,
+            };
+        });
+
         $todoItem.find('.toggle').on('change', function (event) {
-            // TODO: do ajax
             const $target = jquery(event.currentTarget);
             $target.parents('.item-' + item.id).toggleClass('completed');
+
+            const data = {
+                id: item.id,
+                name: item.name,
+                isCompleted: $target.prop('checked'),
+            };
         });
 
         $todoItem.find('.destroy').on('click', function (event) {
-            const className = $todoItem.attr('class');
-            const id = className.substr(className.indexOf('-') + 1);
-
-            sendRemoveRequest(id);
+            sendRemoveRequest(item.id);
         });
 
         $todoList.append($todoItem);

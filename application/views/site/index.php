@@ -28,21 +28,23 @@
     <!-- This footer should hidden by default and shown when there are todos -->
     <footer class="footer">
         <!-- This should be `0 items left` by default -->
-        <span class="todo-count"><strong></strong> item left</span>
+        <div class="todo-count"><strong></strong> item left</div>
         <!-- Remove this if you don't implement routing -->
         <ul class="filters">
             <li>
-                <button name="filter" type="radio" class="selected">All</button>
+                <button class="filter selected">All</button>
             </li>
             <li>
-                <button name="filter" type="radio">Active</button>
+                <button class="filter" value="0">Active</button>
             </li>
             <li>
-                <button name="filter" type="radio">Completed</button>
+                <button class="filter" value="1">Completed</button>
             </li>
         </ul>
         <!-- Hidden if no completed items are left ↓ -->
-        <button class="clear-completed">Clear completed</button>
+        <div>
+            <button class="clear-completed">Clear completed</button>
+        </div>
     </footer>
 </section>
 <footer class="info">
