@@ -14,7 +14,7 @@ use Exception;
 /**
  * Класс CreateForm реализует методы формы.
  */
-class CreateForm extends BaseForm implements IForm
+class CreateOneForm extends BaseForm implements IForm
 {
     use WithAttributeTrait;
     use WithQueryTrait;

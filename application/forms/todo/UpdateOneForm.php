@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\forms\todo;
 
+use App\forms\todo\traits\WithAttributeTrait;
 use App\forms\todo\traits\WithQueryTrait;
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;
@@ -11,10 +12,11 @@ use Core\result\interfaces\IDataResult;
 use Exception;
 
 /**
- * Класс RemoveForm реализует методы формы.
+ * Класс UpdateForm реализует методы формы.
  */
-class RemoveForm extends BaseForm implements IForm
+class UpdateOneForm extends BaseForm implements IForm
 {
+    use WithAttributeTrait;
     use WithQueryTrait;
     /**
      * Свойство хранит идентификатор.
@@ -56,9 +58,25 @@ class RemoveForm extends BaseForm implements IForm
     {
         $result = $this->getResult();
 
-        $removeResult = $this->getQuery()->delete(['id' => $this->getId()]);
-        $result->setData($removeResult->getData());
+        $data = $this->getUpdateData();
+        $this->getQuery()->update(['id' => $this->getId()], $data);
+
+        $data['id'] = $this->getId();
+        $result->setData($data);
 
         return $result;
+    }
+
+    /**
+     * Метод формирует данные для редактирования.
+     *
+     * @return array
+     */
+    protected function getUpdateData(): array
+    {
+        return [
+            'name'        => $this->getName(),
+            'isCompleted' => $this->getIsCompleted(),
+        ];
     }
 }

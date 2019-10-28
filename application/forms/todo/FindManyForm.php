@@ -13,7 +13,7 @@ use Exception;
 /**
  * Класс FindForm реализует методы формы.
  */
-class FindForm extends BaseForm implements IForm
+class FindManyForm extends BaseForm implements IForm
 {
     use WithQueryTrait;
     /**
