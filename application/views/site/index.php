@@ -32,13 +32,13 @@
         <!-- Remove this if you don't implement routing -->
         <ul class="filters">
             <li>
-                <a class="selected" href="#/">All</a>
+                <button name="filter" type="radio" class="selected">All</button>
             </li>
             <li>
-                <a href="#/active">Active</a>
+                <button name="filter" type="radio">Active</button>
             </li>
             <li>
-                <a href="#/completed">Completed</a>
+                <button name="filter" type="radio">Completed</button>
             </li>
         </ul>
         <!-- Hidden if no completed items are left ↓ -->

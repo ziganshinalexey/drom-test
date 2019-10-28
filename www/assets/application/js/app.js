@@ -6,12 +6,7 @@ const REMOVE_URL = '/todo/remove';
 (function (window, jquery) {
     const $todoList = jquery('.todo-list');
 
-    jquery.ajax(LIST_URL).done(function (data) {
-        data.data.forEach(function (item) {
-            createItem(item);
-        });
-        calculateItems();
-    });
+    sendIndexRequest();
 
     jquery('.new-todo').on('keypress', function (event) {
         if (ENTER_KEY_CODE !== event.keyCode) {
@@ -28,6 +23,18 @@ const REMOVE_URL = '/todo/remove';
 
         jquery(input).val(null);
     });
+
+    function sendIndexRequest (isCompleted) {
+        jquery.ajax({
+            url: LIST_URL,
+            data: {isCompleted}
+        }).done(function (data) {
+            data.data.forEach(function (item) {
+                createItem(item);
+            });
+            calculateItems();
+        });
+    }
 
     function sendCreateRequest (data) {
         const request = {
