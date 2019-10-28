@@ -16,26 +16,40 @@ interface IFactory
      *
      * @return IForm
      */
-    public function getFindForm(): IForm;
+    public function getFindManyForm(): IForm;
 
     /**
      * Метод создает форму создания сущности.
      *
      * @return IForm
      */
-    public function getCreateForm(): IForm;
+    public function getCreateOneForm(): IForm;
 
     /**
      * Метод создает форму обновления сущности.
      *
      * @return IForm
      */
-    public function getUpdateForm(): IForm;
+    public function getUpdateOneForm(): IForm;
 
     /**
      * Метод создает форму удаления сущности.
      *
      * @return IForm
      */
-    public function getRemoveForm(): IForm;
+    public function getRemoveOneForm(): IForm;
+
+    /**
+     * Метод создает форму обновления сущности.
+     *
+     * @return IForm
+     */
+    public function getUpdateManyForm(): IForm;
+
+    /**
+     * Метод создает форму удаления сущности.
+     *
+     * @return IForm
+     */
+    public function getRemoveManyForm(): IForm;
 }

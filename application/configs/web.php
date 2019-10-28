@@ -7,7 +7,9 @@ use App\controllers\TodoController;
 use App\factories\TodoFactory;
 use App\forms\todo\CreateOneForm as TodoCreateOneForm;
 use App\forms\todo\FindManyForm as TodoFindManyForm;
+use App\forms\todo\RemoveManyForm as TodoRemoveManyForm;
 use App\forms\todo\RemoveOneForm as TodoRemoveOneForm;
+use App\forms\todo\UpdateManyForm as TodoUpdateManyForm;
 use App\forms\todo\UpdateOneForm as TodoUpdateOneForm;
 use App\queries\TodoQuery;
 use Core\application\components\web\Application;
@@ -65,7 +67,7 @@ return [
             'factory' => [
                 'class'  => TodoFactory::class,
                 'config' => [
-                    TodoFactory::FIND_FORM   => [
+                    TodoFactory::FIND_MANY_FORM   => [
                         'class'  => TodoFindManyForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
@@ -73,7 +75,7 @@ return [
                             'tableName' => 'todo',
                         ],
                     ],
-                    TodoFactory::CREATE_FORM => [
+                    TodoFactory::CREATE_ONE_FORM  => [
                         'class'  => TodoCreateOneForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
@@ -81,7 +83,7 @@ return [
                             'tableName' => 'todo',
                         ],
                     ],
-                    TodoFactory::UPDATE_FORM => [
+                    TodoFactory::UPDATE_ONE_FORM  => [
                         'class'  => TodoUpdateOneForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
@@ -89,8 +91,24 @@ return [
                             'tableName' => 'todo',
                         ],
                     ],
-                    TodoFactory::REMOVE_FORM => [
+                    TodoFactory::REMOVE_ONE_FORM  => [
                         'class'  => TodoRemoveOneForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => TodoQuery::class,
+                            'tableName' => 'todo',
+                        ],
+                    ],
+                    TodoFactory::UPDATE_MANY_FORM => [
+                        'class'  => TodoUpdateManyForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => TodoQuery::class,
+                            'tableName' => 'todo',
+                        ],
+                    ],
+                    TodoFactory::REMOVE_MANY_FORM => [
+                        'class'  => TodoRemoveManyForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
                             'class'     => TodoQuery::class,

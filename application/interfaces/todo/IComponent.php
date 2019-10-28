@@ -42,4 +42,18 @@ interface IComponent extends IBaseObject, IBaseComponent
      * @return IForm
      */
     public function removeOne(): IForm;
+
+    /**
+     * Метод возвращает форму редактирования.
+     *
+     * @return IForm
+     */
+    public function updateMany(): IForm;
+
+    /**
+     * Метод возвращает форму удаления.
+     *
+     * @return IForm
+     */
+    public function removeMany(): IForm;
 }

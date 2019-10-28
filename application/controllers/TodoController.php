@@ -100,4 +100,35 @@ class TodoController extends Controller
             'data' => $result->getData(),
         ]);
     }
+
+    /**
+     * Метод возвращает список действия.
+     *
+     * @throws Exception
+     */
+    public function actionClear(): void
+    {
+        $form   = $this->getTodoComponent()->removeMany();
+        $result = $form->run();
+
+        $this->renderJson([
+            'data' => ['isSuccess' => $result->getData()['success'] ?? false],
+        ]);
+    }
+
+    /**
+     * Метод возвращает список действия.
+     *
+     * @throws Exception
+     */
+    public function actionToggle(): void
+    {
+        $form = $this->getTodoComponent()->updateOne();
+        $form->load($this->getRequestComponent()->post());
+        $result = $form->run();
+
+        $this->renderJson([
+            'data' => ['isSuccess' => $result->getData()['success'] ?? false],
+        ]);
+    }
 }

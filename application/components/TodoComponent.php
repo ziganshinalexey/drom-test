@@ -29,7 +29,7 @@ class TodoComponent extends BaseObject implements IComponent
      */
     public function findMany(): IForm
     {
-        return $this->getFactory()->getFindForm();
+        return $this->getFactory()->getFindManyForm();
     }
 
     /**
@@ -41,7 +41,7 @@ class TodoComponent extends BaseObject implements IComponent
      */
     public function createOne(): IForm
     {
-        return $this->getFactory()->getCreateForm();
+        return $this->getFactory()->getCreateOneForm();
     }
 
     /**
@@ -53,7 +53,7 @@ class TodoComponent extends BaseObject implements IComponent
      */
     public function updateOne(): IForm
     {
-        return $this->getFactory()->getUpdateForm();
+        return $this->getFactory()->getUpdateOneForm();
     }
 
     /**
@@ -65,7 +65,31 @@ class TodoComponent extends BaseObject implements IComponent
      */
     public function removeOne(): IForm
     {
-        return $this->getFactory()->getRemoveForm();
+        return $this->getFactory()->getRemoveOneForm();
+    }
+
+    /**
+     * Метод возвращает форму редактирования.
+     *
+     * @return IForm
+     *
+     * @throws Exception
+     */
+    public function updateMany(): IForm
+    {
+        return $this->getFactory()->getUpdateManyForm();
+    }
+
+    /**
+     * Метод возвращает форму удаления.
+     *
+     * @return IForm
+     *
+     * @throws Exception
+     */
+    public function removeMany(): IForm
+    {
+        return $this->getFactory()->getRemoveManyForm();
     }
 
     /**

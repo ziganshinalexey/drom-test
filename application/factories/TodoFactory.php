@@ -14,10 +14,12 @@ use Exception;
  */
 class TodoFactory extends Factory implements IFactory
 {
-    public const FIND_FORM   = 'findForm';
-    public const CREATE_FORM = 'createForm';
-    public const UPDATE_FORM = 'updateForm';
-    public const REMOVE_FORM = 'removeForm';
+    public const FIND_MANY_FORM   = 'findManyForm';
+    public const CREATE_ONE_FORM  = 'createOneForm';
+    public const UPDATE_ONE_FORM  = 'updateOneForm';
+    public const REMOVE_ONE_FORM  = 'removeOneForm';
+    public const UPDATE_MANY_FORM = 'updateManyForm';
+    public const REMOVE_MANY_FORM = 'removeManyForm';
 
     /**
      * Метод создает форму поиска сущности.
@@ -26,9 +28,9 @@ class TodoFactory extends Factory implements IFactory
      *
      * @throws Exception
      */
-    public function getFindForm(): IForm
+    public function getFindManyForm(): IForm
     {
-        return $this->getInstance(static::FIND_FORM);
+        return $this->getInstance(static::FIND_MANY_FORM);
     }
 
     /**
@@ -38,9 +40,9 @@ class TodoFactory extends Factory implements IFactory
      *
      * @throws Exception
      */
-    public function getCreateForm(): IForm
+    public function getCreateOneForm(): IForm
     {
-        return $this->getInstance(static::CREATE_FORM);
+        return $this->getInstance(static::CREATE_ONE_FORM);
     }
 
     /**
@@ -50,9 +52,9 @@ class TodoFactory extends Factory implements IFactory
      *
      * @throws Exception
      */
-    public function getUpdateForm(): IForm
+    public function getUpdateOneForm(): IForm
     {
-        return $this->getInstance(static::UPDATE_FORM);
+        return $this->getInstance(static::UPDATE_ONE_FORM);
     }
 
     /**
@@ -62,8 +64,32 @@ class TodoFactory extends Factory implements IFactory
      *
      * @throws Exception
      */
-    public function getRemoveForm(): IForm
+    public function getRemoveOneForm(): IForm
     {
-        return $this->getInstance(static::REMOVE_FORM);
+        return $this->getInstance(static::REMOVE_ONE_FORM);
+    }
+
+    /**
+     * Метод создает форму обновления сущности.
+     *
+     * @return IForm
+     *
+     * @throws Exception
+     */
+    public function getUpdateManyForm(): IForm
+    {
+        return $this->getInstance(static::UPDATE_MANY_FORM);
+    }
+
+    /**
+     * Метод создает форму удаления сущности.
+     *
+     * @return IForm
+     *
+     * @throws Exception
+     */
+    public function getRemoveManyForm(): IForm
+    {
+        return $this->getInstance(static::REMOVE_MANY_FORM);
     }
 }
