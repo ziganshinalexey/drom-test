@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use App\components\TodoComponent;
 use App\controllers\TodoController;
+use App\controllers\UserController;
 use App\factories\TodoFactory;
 use App\forms\todo\CreateOneForm as TodoCreateOneForm;
 use App\forms\todo\FindManyForm as TodoFindManyForm;
@@ -41,6 +42,13 @@ return [
                     'class'   => TodoController::class,
                     'viewMap' => [
                         'index' => $appDirectory . '/views/site/index.php',
+                    ],
+                ],
+                'user' => [
+                    'class'   => UserController::class,
+                    'viewMap' => [
+                        'login'    => $appDirectory . '/views/user/login.php',
+                        'register' => $appDirectory . '/views/user/register.php',
                     ],
                 ],
             ],
