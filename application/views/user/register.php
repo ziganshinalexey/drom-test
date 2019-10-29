@@ -11,7 +11,7 @@
 </head>
 <body>
 <section class="todoapp">
-    <h1>Login</h1>
+    <h1>Sign Up</h1>
     <form action="/user/register" method="post" class="form">
         <input name="login" class="edit" placeholder="Login" autofocus>
         <input name="password" class="edit" type="password" placeholder="Password">
