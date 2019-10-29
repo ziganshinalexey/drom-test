@@ -14,6 +14,7 @@ use Exception;
 class TodoQuery extends BaseObject implements IQuery
 {
     use WithDatabaseComponent;
+    protected const UPDATE_TEMPLATE = '';
     /**
      * Свойтсво хранит название таблицы.
      *
@@ -24,14 +25,14 @@ class TodoQuery extends BaseObject implements IQuery
     /**
      * Метод удаляет записи из БД.
      *
-     * @param array $condition Условие удаления.
      * @param array $data      Новое значение.
+     * @param array $condition Условие удаления.
      *
      * @return IDataResult
      *
      * @throws Exception
      */
-    public function update(array $condition, array $data): IDataResult
+    public function update(array $data, array $condition = []): IDataResult
     {
         $connection = $this->getDatabaseComponent()->getConnection();
 
@@ -51,11 +52,11 @@ class TodoQuery extends BaseObject implements IQuery
             $dataList[] = sprintf('%s = %s', $columnName, $value);
         }
 
-        if (empty($conditionList) || empty($dataList)) {
+        if (empty($dataList)) {
             throw new Exception('Список данных пуст.');
         }
 
-        $conditionList = implode(' and ', $conditionList);
+        $conditionList = empty($conditionList) ? 1 : implode(' and ', $conditionList);
         $dataList      = implode(',', $dataList);
         $sql           = sprintf('update `%s` set %s where %s', $this->getTableName(), $dataList, $conditionList);
 

@@ -59,7 +59,7 @@ class UpdateOneForm extends BaseForm implements IForm
         $result = $this->getResult();
 
         $data = $this->getUpdateData();
-        $this->getQuery()->update(['id' => $this->getId()], $data);
+        $this->getQuery()->update($data, ['id' => $this->getId()]);
 
         $data['id'] = $this->getId();
         $result->setData($data);

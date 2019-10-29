@@ -55,10 +55,10 @@ interface IQuery
     /**
      * Метод удаляет записи из БД.
      *
-     * @param array $condition Условие удаления.
      * @param array $data      Новое значение.
+     * @param array $condition Условие удаления.
      *
      * @return IDataResult
      */
-    public function update(array $condition, array $data): IDataResult;
+    public function update(array $data, array $condition = []): IDataResult;
 }
