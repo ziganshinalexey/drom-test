@@ -54,6 +54,21 @@ class CreateOneForm extends BaseForm implements IForm
     }
 
     /**
+     * Метод возвращает данные для добавления в БД.
+     *
+     * @return array
+     */
+    protected function getInsertData(): array
+    {
+        return [
+            'login'     => $this->getLogin(),
+            'password'  => $this->getPassword(),
+            'lastName'  => $this->getLastName(),
+            'firstName' => $this->getFirstName(),
+        ];
+    }
+
+    /**
      * Метод задает логин пользователя.
      *
      * @param string $value Новое значение.

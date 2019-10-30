@@ -8,7 +8,12 @@ docker-compose: "^1.24.1"
 
 Установка
 ---
-```docker-compose up -d```
+```docker-compose up -d --build```
+
+```docker exec drom-test_db_1 mysql -u root -p123 -e "CREATE DATABASE todo"```
+
+Ошибка, которая может случиться `ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)`
+Не получилось разобраться. Лечится ожиданием в 10-15 секунд и повторным исполнением команды.
 
 ```docker exec drom-test_apache_1 php core.php migrate/up```
 
