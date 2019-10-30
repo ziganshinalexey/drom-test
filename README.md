@@ -35,7 +35,7 @@ return [
         Request::COMPONENT_NAME   => [
             'class' => Request::class,
         ],
-        'route'                   => [
+        Route::COMPONENT_NAME     => [
             'class'         => Route::class,
             'controllerMap' => [
                 'migrate' => ['class' => MigrateController::class],
