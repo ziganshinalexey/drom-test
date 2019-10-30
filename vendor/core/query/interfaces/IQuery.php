@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\interfaces\todo;
+namespace Core\query\interfaces;
 
 use Core\result\interfaces\IDataResult;
 

@@ -1,8 +1,10 @@
 <?php
 
-namespace App\forms\todo\traits;
+declare(strict_types = 1);
 
-use App\interfaces\todo\IQuery;
+namespace Core\query\traits;
+
+use Core\query\interfaces\IQuery;
 
 /**
  * Трэит WithQueryTrait добавляет объект запросов.

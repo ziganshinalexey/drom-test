@@ -12,11 +12,11 @@ use App\forms\todo\RemoveManyForm as TodoRemoveManyForm;
 use App\forms\todo\RemoveOneForm as TodoRemoveOneForm;
 use App\forms\todo\UpdateManyForm as TodoUpdateManyForm;
 use App\forms\todo\UpdateOneForm as TodoUpdateOneForm;
-use App\queries\TodoQuery;
 use Core\application\components\web\Application;
 use Core\db\components\DataBase;
 use Core\db\factories\Factory as DBFactory;
 use Core\db\mysql\Connection;
+use Core\query\Query;
 use Core\request\components\web\Request;
 use Core\request\parsers\JsonParser;
 use Core\response\components\Response;
@@ -79,7 +79,7 @@ return [
                         'class'  => TodoFindManyForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
-                            'class'     => TodoQuery::class,
+                            'class'     => Query::class,
                             'tableName' => 'todo',
                         ],
                     ],
@@ -87,7 +87,7 @@ return [
                         'class'  => TodoCreateOneForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
-                            'class'     => TodoQuery::class,
+                            'class'     => Query::class,
                             'tableName' => 'todo',
                         ],
                     ],
@@ -95,7 +95,7 @@ return [
                         'class'  => TodoUpdateOneForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
-                            'class'     => TodoQuery::class,
+                            'class'     => Query::class,
                             'tableName' => 'todo',
                         ],
                     ],
@@ -103,7 +103,7 @@ return [
                         'class'  => TodoRemoveOneForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
-                            'class'     => TodoQuery::class,
+                            'class'     => Query::class,
                             'tableName' => 'todo',
                         ],
                     ],
@@ -111,7 +111,7 @@ return [
                         'class'  => TodoUpdateManyForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
-                            'class'     => TodoQuery::class,
+                            'class'     => Query::class,
                             'tableName' => 'todo',
                         ],
                     ],
@@ -119,7 +119,7 @@ return [
                         'class'  => TodoRemoveManyForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
-                            'class'     => TodoQuery::class,
+                            'class'     => Query::class,
                             'tableName' => 'todo',
                         ],
                     ],

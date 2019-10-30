@@ -1,20 +1,21 @@
 <?php
 
-namespace App\queries;
+declare(strict_types = 1);
 
-use App\interfaces\todo\IQuery;
+namespace Core\query;
+
 use Core\BaseObject;
 use Core\db\traits\WithDatabaseComponent;
+use Core\query\interfaces\IQuery;
 use Core\result\interfaces\IDataResult;
 use Exception;
 
 /**
- * Класс TodoQuery реализует методы запросов.
+ * Класс Query реализует методы запросов.
  */
-class TodoQuery extends BaseObject implements IQuery
+class Query extends BaseObject implements IQuery
 {
     use WithDatabaseComponent;
-    protected const UPDATE_TEMPLATE = '';
     /**
      * Свойтсво хранит название таблицы.
      *
@@ -138,7 +139,7 @@ class TodoQuery extends BaseObject implements IQuery
      *
      * @throws Exception
      */
-    public function all($condition = []): IDataResult
+    public function all(array $condition = []): IDataResult
     {
         $connection = $this->getDatabaseComponent()->getConnection();
 

@@ -5,9 +5,9 @@ declare(strict_types = 1);
 namespace App\forms\todo;
 
 use App\forms\todo\traits\WithAttributeTrait;
-use App\forms\todo\traits\WithQueryTrait;
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;
+use Core\query\traits\WithQueryTrait;
 use Core\result\interfaces\IDataResult;
 use Exception;
 
