@@ -3,15 +3,19 @@
 declare(strict_types = 1);
 
 use App\components\TodoComponent;
+use App\components\UserComponent;
 use App\controllers\TodoController;
 use App\controllers\UserController;
 use App\factories\TodoFactory;
+use App\factories\UserFactory;
 use App\forms\todo\CreateOneForm as TodoCreateOneForm;
 use App\forms\todo\FindManyForm as TodoFindManyForm;
 use App\forms\todo\RemoveManyForm as TodoRemoveManyForm;
 use App\forms\todo\RemoveOneForm as TodoRemoveOneForm;
 use App\forms\todo\UpdateManyForm as TodoUpdateManyForm;
 use App\forms\todo\UpdateOneForm as TodoUpdateOneForm;
+use App\forms\user\CreateOneForm as UserCreateOneForm;
+use App\forms\user\LoginForm as UserLoginForm;
 use Core\application\components\web\Application;
 use Core\db\components\DataBase;
 use Core\db\factories\Factory as DBFactory;
@@ -121,6 +125,30 @@ return [
                         'query'  => [
                             'class'     => Query::class,
                             'tableName' => 'todo',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        UserComponent::COMPONENT_NAME => [
+            'class'   => UserComponent::class,
+            'factory' => [
+                'class'  => UserFactory::class,
+                'config' => [
+                    UserFactory::LOGIN_FORM      => [
+                        'class'  => UserLoginForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => Query::class,
+                            'tableName' => 'user',
+                        ],
+                    ],
+                    UserFactory::CREATE_ONE_FORM => [
+                        'class'  => UserCreateOneForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => Query::class,
+                            'tableName' => 'user',
                         ],
                     ],
                 ],

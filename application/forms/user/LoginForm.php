@@ -2,12 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace App\forms\todo;
+namespace App\forms\user;
 
-use App\forms\todo\traits\WithAttributeTrait;
-use App\forms\todo\traits\WithQueryTrait;
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;
+use Core\query\traits\WithQueryTrait;
 use Core\result\interfaces\IDataResult;
 use Exception;
 
@@ -16,8 +15,19 @@ use Exception;
  */
 class LoginForm extends BaseForm implements IForm
 {
-    use WithAttributeTrait;
     use WithQueryTrait;
+    /**
+     * Свойство содержит логин пользователя.
+     *
+     * @var null|string
+     */
+    protected $login;
+    /**
+     * Свойство содержит пароль пользователя.
+     *
+     * @var null|string
+     */
+    protected $password;
 
     /**
      * Метод реализует основное действие формы.
@@ -29,5 +39,49 @@ class LoginForm extends BaseForm implements IForm
     public function run(): IDataResult
     {
 
+    }
+
+    /**
+     * Метод задает логин пользователя.
+     *
+     * @param string $value Новое значение.
+     *
+     * @return void
+     */
+    public function setLogin(string $value): void
+    {
+        $this->login = $value;
+    }
+
+    /**
+     * Метод возвращает логин пользователя.
+     *
+     * @return string|null
+     */
+    public function getLogin(): ?string
+    {
+        return null === $this->login ? null : (string)$this->login;
+    }
+
+    /**
+     * Метод задает пароль пользователя.
+     *
+     * @param string $value Новое значение.
+     *
+     * @return void
+     */
+    public function setPassword(string $value): void
+    {
+        $this->password = $value;
+    }
+
+    /**
+     * Метод возвращает пароль пользователя.
+     *
+     * @return string|null
+     */
+    public function getPassword(): ?string
+    {
+        return null === $this->password ? null : (string)$this->password;
     }
 }
