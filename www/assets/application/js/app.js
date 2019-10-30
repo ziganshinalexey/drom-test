@@ -15,8 +15,11 @@ const CLEAR_URL = '/todo/clear';
         if (ENTER_KEY_CODE !== event.keyCode) {
             return;
         }
-
         const input = event.currentTarget;
+        if ('' === input.value) {
+            alert('Название не может быть пустым.');
+            return;
+        }
         const data = {
             name: input.value,
             isCompleted: false
@@ -177,6 +180,12 @@ const CLEAR_URL = '/todo/clear';
             const $input = jquery(event.currentTarget);
             const $li = $input.parent();
             $li.toggleClass('editing');
+
+            if ('' === $input.val()) {
+                alert('Название не может быть пустым.');
+                return;
+            }
+
 
             const $label = $li.find('label').text($input.val());
 

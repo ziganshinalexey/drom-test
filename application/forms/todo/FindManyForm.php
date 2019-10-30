@@ -81,7 +81,7 @@ class FindManyForm extends BaseForm implements IForm
         foreach ($data as $todoData) {
             $result[] = [
                 'id'          => (int)$todoData['id'] ?? null,
-                'name'        => (string)$todoData['name'] ?? null,
+                'name'        => (string)htmlspecialchars($todoData['name'] ?? ''),
                 'isCompleted' => (bool)$todoData['isCompleted'] ?? null,
             ];
         }
