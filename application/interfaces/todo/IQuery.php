@@ -30,9 +30,11 @@ interface IQuery
     /**
      * Метод возвращает выборку из БД.
      *
+     * @param array $condition Условия выборки.
+     *
      * @return IDataResult
      */
-    public function all(): IDataResult;
+    public function all(array $condition = []): IDataResult;
 
     /**
      * Метод добавляет запись в БД.

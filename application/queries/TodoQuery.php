@@ -132,15 +132,28 @@ class TodoQuery extends BaseObject implements IQuery
     /**
      * Метод возвращает выборку из БД.
      *
+     * @param array $condition Условия выборки.
+     *
      * @return IDataResult
      *
      * @throws Exception
      */
-    public function all(): IDataResult
+    public function all($condition = []): IDataResult
     {
-        $sql = sprintf('select * from `%s`', $this->getTableName());
+        $connection = $this->getDatabaseComponent()->getConnection();
 
-        return $this->getDatabaseComponent()->getConnection()->execute($sql);
+        $conditionList = [];
+        foreach ($condition as $columnName => $value) {
+            $columnName = sprintf('`%s`', $connection->escapeString($columnName));
+            $value      = is_string($value) ? sprintf('"%s"', $connection->escapeString($value)) : $value;
+
+            $conditionList[] = sprintf('%s = %s', $columnName, $value);
+        }
+
+        $conditionList = empty($conditionList) ? 1 : implode(' and ', $conditionList);
+        $sql           = sprintf('select * from `%s` where %s', $this->getTableName(), $conditionList);
+
+        return $connection->execute($sql);
     }
 
     /**

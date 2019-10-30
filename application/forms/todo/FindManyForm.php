@@ -56,7 +56,11 @@ class FindManyForm extends BaseForm implements IForm
     {
         $result = $this->getResult();
 
-        $data = $this->getQuery()->all()->getData();
+        $condition = [];
+        if (null !== $this->getIsCompleted()) {
+            $condition['isCompleted'] = $this->getIsCompleted();
+        }
+        $data = $this->getQuery()->all($condition)->getData();
         $data = $this->prepareData($data);
         $result->setData($data);
 
@@ -75,11 +79,6 @@ class FindManyForm extends BaseForm implements IForm
         $result = [];
 
         foreach ($data as $todoData) {
-            $isCompleted = (bool)$todoData['isCompleted'] ?? null;
-            if (null !== $this->getIsCompleted() && $this->getIsCompleted() !== (int)$isCompleted) {
-                continue;
-            }
-
             $result[] = [
                 'id'          => (int)$todoData['id'] ?? null,
                 'name'        => (string)$todoData['name'] ?? null,
