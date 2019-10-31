@@ -47,5 +47,5 @@ interface IResponse extends IComponent
      *
      * @return void
      */
-    public function send(string $content, int $code = 200): void;
+    public function send(string $content = null, int $code = 200): void;
 }

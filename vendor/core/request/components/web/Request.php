@@ -87,7 +87,7 @@ class Request extends BaseObject implements IRequest
         $headerList        = array_change_key_case(getallheaders());
         $contentTypeHeader = $headerList[static::CONTENT_TYPE_HEADER_NAME] ?? null;
 
-        if (! $contentTypeHeader && ! $this->getParserList()[$contentTypeHeader]) {
+        if (! $contentTypeHeader || ! isset($this->getParserList()[$contentTypeHeader])) {
             return;
         }
 

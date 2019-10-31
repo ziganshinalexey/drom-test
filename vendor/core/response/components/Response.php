@@ -66,7 +66,7 @@ class Response extends BaseObject implements IResponse
      *
      * @return void
      */
-    public function send(string $content, int $code = 200): void
+    public function send(string $content = null, int $code = 200): void
     {
         $this->sendHeaders($code);
         $this->sendContent($content);
@@ -91,11 +91,11 @@ class Response extends BaseObject implements IResponse
     /**
      * Метод отправляет контент.
      *
-     * @param string $content Сообщение для пользователя.
+     * @param string|null $content Сообщение для пользователя.
      *
      * @return void
      */
-    protected function sendContent(string $content): void
+    protected function sendContent(?string $content): void
     {
         echo $content;
     }

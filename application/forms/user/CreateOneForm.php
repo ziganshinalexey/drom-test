@@ -16,6 +16,8 @@ use Exception;
 class CreateOneForm extends BaseForm implements IForm
 {
     use WithQueryTrait;
+
+    protected const ACCESS_KEY_LENGTH = 32;
     /**
      * Свойство содержит логин пользователя.
      *
@@ -50,21 +52,45 @@ class CreateOneForm extends BaseForm implements IForm
      */
     public function run(): IDataResult
     {
+        $result = $this->getResult();
 
+        $data         = $this->getInsertData();
+        $insertResult = $this->getQuery()->insert($data);
+
+        $id         = (int)$insertResult->getData()['id'] ?? null;
+        $data['id'] = $id;
+        $result->setData($data);
+
+        return $result;
+    }
+
+    /**
+     * Метод генерирует случайную строку в виде ключа доступа.
+     *
+     * @return string
+     *
+     * @throws Exception
+     */
+    protected function generateAccessToken(): string
+    {
+        return strtr(base64_encode(random_bytes(static::ACCESS_KEY_LENGTH)), '+/', '-_');
     }
 
     /**
      * Метод возвращает данные для добавления в БД.
      *
      * @return array
+     *
+     * @throws Exception
      */
     protected function getInsertData(): array
     {
         return [
-            'login'     => $this->getLogin(),
-            'password'  => $this->getPassword(),
-            'lastName'  => $this->getLastName(),
-            'firstName' => $this->getFirstName(),
+            'login'       => $this->getLogin(),
+            'password'    => $this->getPassword(),
+            'lastName'    => $this->getLastName(),
+            'firstName'   => $this->getFirstName(),
+            'accessToken' => $this->generateAccessToken(),
         ];
     }
 

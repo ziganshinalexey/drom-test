@@ -72,6 +72,23 @@ class Controller extends BaseObject implements IController
     /**
      * Метод рендера страницы.
      *
+     * @param string $relativeUrl Относительный путь.
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    protected function redirect(string $relativeUrl): void
+    {
+        $response = $this->getResponseComponent();
+        $response->addHeader('Location', $relativeUrl);
+
+        $response->send();
+    }
+
+    /**
+     * Метод рендера страницы.
+     *
      * @param string $view      Ключ для карты с шаблоном вьюхи.
      * @param array  $paramList Список параметров для рендера страницы.
      *
