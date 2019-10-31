@@ -11,6 +11,7 @@
         $.ajax({
             url: "/user/create",
             method: 'post',
+            headers: {'x-access-token': localStorage.accessToken},
             data: data
         }).done(function (response) {
             if (Array.isArray(response.errors) && response.errors.length) {

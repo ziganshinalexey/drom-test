@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 namespace Core\controller;
 
-use Core\user\traits\WithUserComponent;
 use Core\BaseObject;
 use Core\controller\interfaces\IController;
 use Core\request\traits\web\WithRequestComponent;
 use Core\response\traits\WithResponseComponent;
+use Core\user\traits\WithUserComponent;
 use Exception;
 
 /**

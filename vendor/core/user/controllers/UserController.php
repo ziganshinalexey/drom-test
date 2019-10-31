@@ -20,10 +20,8 @@ class UserController extends Controller
      * @var array
      */
     protected $permissionMap = [
-        'login'    => self::LOGOUT_PERMISSION,
-        'register' => self::LOGOUT_PERMISSION,
-        'save'     => self::LOGOUT_PERMISSION,
-        'auth'     => self::LOGOUT_PERMISSION,
+        'save' => self::LOGOUT_PERMISSION,
+        'auth' => self::LOGOUT_PERMISSION,
     ];
 
     /**
