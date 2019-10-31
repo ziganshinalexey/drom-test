@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\interfaces\user;
 
+use App\interfaces\user\forms\IFindOneForm;
 use Core\application\interfaces\IComponent as IBaseComponent;
 use Core\form\interfaces\IForm;
 use Core\IBaseObject;
@@ -28,4 +29,18 @@ interface IComponent extends IBaseObject, IBaseComponent
      * @return IForm
      */
     public function createOne(): IForm;
+
+    /**
+     * Метод возвращает форму поиска одной сущности.
+     *
+     * @return IFindOneForm
+     */
+    public function findOne(): IFindOneForm;
+
+    /**
+     * Метод возвращает текущего пользователя.
+     *
+     * @return array|null
+     */
+    public function getCurrentUser(): ?array;
 }

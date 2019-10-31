@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\forms\todo;
 
+use App\traits\WithUserComponent;
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;
 use Core\query\traits\WithQueryTrait;
@@ -16,6 +17,7 @@ use Exception;
 class FindManyForm extends BaseForm implements IForm
 {
     use WithQueryTrait;
+    use WithUserComponent;
     /**
      * Свойство хранит признак выполнености.
      *
@@ -60,6 +62,12 @@ class FindManyForm extends BaseForm implements IForm
         if (null !== $this->getIsCompleted()) {
             $condition['isCompleted'] = $this->getIsCompleted();
         }
+        $userId = $this->getUserComponent()->getCurrentUser()['id'] ?? null;
+        if (null === $userId) {
+            return $result;
+        }
+        $condition['userId'] = $userId;
+
         $data = $this->getQuery()->all($condition)->getData();
         $data = $this->prepareData($data);
         $result->setData($data);

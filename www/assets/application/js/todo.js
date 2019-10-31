@@ -54,6 +54,7 @@ const CLEAR_URL = '/todo/clear';
     function sendIndexRequest (isCompleted) {
         jquery.ajax({
             url: LIST_URL,
+            headers: {'x-access-token': localStorage.accessToken},
             data: '' === isCompleted ? null : {isCompleted}
         }).done(function (data) {
             const $list = jquery('.todo-list li');
@@ -76,6 +77,7 @@ const CLEAR_URL = '/todo/clear';
     function sendCreateRequest (data) {
         const request = {
             url: CREATE_URL,
+            headers: {'x-access-token': localStorage.accessToken},
             type: 'post',
             dataType: 'json',
             contentType: 'application/json',
@@ -90,6 +92,7 @@ const CLEAR_URL = '/todo/clear';
     function sendUpdateRequest (data) {
         const request = {
             url: UPDATE_URL,
+            headers: {'x-access-token': localStorage.accessToken},
             type: 'post',
             dataType: 'json',
             contentType: 'application/json',
@@ -104,6 +107,7 @@ const CLEAR_URL = '/todo/clear';
     function sendRemoveRequest (id) {
         const request = {
             url: REMOVE_URL,
+            headers: {'x-access-token': localStorage.accessToken},
             data: {id: id}
         };
 
@@ -119,6 +123,7 @@ const CLEAR_URL = '/todo/clear';
     function sendClearRequest () {
         const request = {
             url: CLEAR_URL,
+            headers: {'x-access-token': localStorage.accessToken},
         };
 
         return jquery.ajax(request).done(function () {
@@ -129,6 +134,7 @@ const CLEAR_URL = '/todo/clear';
     function sendToggleRequest (isCompleted) {
         const request = {
             url: TOGGLE_URL,
+            headers: {'x-access-token': localStorage.accessToken},
             type: 'post',
             dataType: 'json',
             contentType: 'application/json',

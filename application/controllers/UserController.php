@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace App\controllers;
 
-use App\traits\WithUserComponent;
 use Core\controller\Controller;
 use Core\request\traits\web\WithRequestComponent;
 use Exception;
@@ -15,7 +14,17 @@ use Exception;
 class UserController extends Controller
 {
     use WithRequestComponent;
-    use WithUserComponent;
+    /**
+     * Переопределенное свойство хранит карту Идентификатор действия => Право.
+     *
+     * @var array
+     */
+    protected $permissionMap = [
+        'login'    => self::LOGOUT_PERMISSION,
+        'register' => self::LOGOUT_PERMISSION,
+        'save'     => self::LOGOUT_PERMISSION,
+        'auth'     => self::LOGOUT_PERMISSION,
+    ];
 
     /**
      * Метод реализует действие логина.

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\forms\todo;
 
+use App\traits\WithUserComponent;
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;
 use Core\query\traits\WithQueryTrait;
@@ -16,6 +17,7 @@ use Exception;
 class UpdateManyForm extends BaseForm implements IForm
 {
     use WithQueryTrait;
+    use WithUserComponent;
     /**
      * Свойство хранит идентификатор.
      *
@@ -54,6 +56,8 @@ class UpdateManyForm extends BaseForm implements IForm
      */
     public function run(): IDataResult
     {
-        return $this->getQuery()->update(['isCompleted' => $this->getIsCompleted()]);
+        $userId = $this->getUserComponent()->getCurrentUser()['id'] ?? null;
+
+        return $this->getQuery()->update(['isCompleted' => $this->getIsCompleted()], ['userId' => $userId]);
     }
 }

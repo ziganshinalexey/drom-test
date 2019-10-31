@@ -77,6 +77,20 @@ class Request extends BaseObject implements IRequest
     }
 
     /**
+     * Метод возвращает за головок по названию.
+     *
+     * @param string $name Название заголовка.
+     *
+     * @return string|null
+     */
+    public function getHeaderByName(string $name): ?string
+    {
+        $headerList = getallheaders();
+
+        return array_key_exists($name, $headerList) ? (string)$headerList[$name] : null;
+    }
+
+    /**
      * Метод парсит данные входящего ответа.
      *
      * @throws ReflectionException

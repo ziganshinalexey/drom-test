@@ -18,6 +18,19 @@ class TodoController extends Controller
     use WithDatabaseComponent;
     use WithTodoComponent;
     use WithRequestComponent;
+    /**
+     * Переопределенное свойство хранит карту Идентификатор действия => Право.
+     *
+     * @var array
+     */
+    protected $permissionMap = [
+        'list'   => self::LOGIN_PERMISSION,
+        'create' => self::LOGIN_PERMISSION,
+        'update' => self::LOGIN_PERMISSION,
+        'remove' => self::LOGIN_PERMISSION,
+        'toggle' => self::LOGIN_PERMISSION,
+        'clear'  => self::LOGIN_PERMISSION,
+    ];
 
     /**
      * Метод выполняет действие по-умолчанию.

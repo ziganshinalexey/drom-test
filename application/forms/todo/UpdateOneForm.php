@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\forms\todo;
 
 use App\forms\todo\traits\WithAttributeTrait;
+use App\traits\WithUserComponent;
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;
 use Core\query\traits\WithQueryTrait;
@@ -18,6 +19,7 @@ class UpdateOneForm extends BaseForm implements IForm
 {
     use WithAttributeTrait;
     use WithQueryTrait;
+    use WithUserComponent;
     /**
      * Свойство хранит идентификатор.
      *
@@ -58,8 +60,12 @@ class UpdateOneForm extends BaseForm implements IForm
     {
         $result = $this->getResult();
 
-        $data = $this->getUpdateData();
-        $this->getQuery()->update($data, ['id' => $this->getId()]);
+        $userId = $this->getUserComponent()->getCurrentUser()['id'] ?? null;
+        $data   = $this->getUpdateData();
+        $this->getQuery()->update($data, [
+            'id'     => $this->getId(),
+            'userId' => $userId,
+        ]);
 
         $data['id'] = $this->getId();
         $result->setData($data);

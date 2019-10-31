@@ -35,4 +35,13 @@ interface IRequest extends IComponent
      * @return array
      */
     public function post(): array;
+
+    /**
+     * Метод возвращает за головок по названию.
+     *
+     * @param string $name Название заголовка.
+     *
+     * @return string|null
+     */
+    public function getHeaderByName(string $name): ?string;
 }

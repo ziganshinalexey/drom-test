@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\forms\todo;
 
+use App\traits\WithUserComponent;
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;
 use Core\query\traits\WithQueryTrait;
@@ -16,6 +17,7 @@ use Exception;
 class RemoveOneForm extends BaseForm implements IForm
 {
     use WithQueryTrait;
+    use WithUserComponent;
     /**
      * Свойство хранит идентификатор.
      *
@@ -56,7 +58,11 @@ class RemoveOneForm extends BaseForm implements IForm
     {
         $result = $this->getResult();
 
-        $removeResult = $this->getQuery()->delete(['id' => $this->getId()]);
+        $userId       = $this->getUserComponent()->getCurrentUser()['id'] ?? null;
+        $removeResult = $this->getQuery()->delete([
+            'id'     => $this->getId(),
+            'userId' => $userId,
+        ]);
         $result->setData($removeResult->getData());
 
         return $result;

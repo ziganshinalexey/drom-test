@@ -15,6 +15,7 @@ use App\forms\todo\RemoveOneForm as TodoRemoveOneForm;
 use App\forms\todo\UpdateManyForm as TodoUpdateManyForm;
 use App\forms\todo\UpdateOneForm as TodoUpdateOneForm;
 use App\forms\user\CreateOneForm as UserCreateOneForm;
+use App\forms\user\FindOneForm as UserFindOneForm;
 use App\forms\user\LoginForm as UserLoginForm;
 use Core\application\components\web\Application;
 use Core\db\components\DataBase;
@@ -34,7 +35,7 @@ return [
     'componentList' => [
         Request::COMPONENT_NAME       => [
             'class'            => Request::class,
-            'defaultRouteName' => 'todo/index',
+            'defaultRouteName' => 'user/login',
             'parserList'       => [
                 'application/json' => ['class' => JsonParser::class],
             ],
@@ -145,6 +146,14 @@ return [
                     ],
                     UserFactory::CREATE_ONE_FORM => [
                         'class'  => UserCreateOneForm::class,
+                        'result' => ['class' => DataResult::class],
+                        'query'  => [
+                            'class'     => Query::class,
+                            'tableName' => 'user',
+                        ],
+                    ],
+                    UserFactory::FIND_ONE_FORM   => [
+                        'class'  => UserFindOneForm::class,
                         'result' => ['class' => DataResult::class],
                         'query'  => [
                             'class'     => Query::class,

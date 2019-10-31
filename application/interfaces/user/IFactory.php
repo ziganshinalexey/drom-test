@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\interfaces\user;
 
+use App\interfaces\user\forms\IFindOneForm;
 use Core\form\interfaces\IForm;
 
 /**
@@ -24,4 +25,11 @@ interface IFactory
      * @return IForm
      */
     public function getCreateOneForm(): IForm;
+
+    /**
+     * Метод создает форму поиска одной сущности.
+     *
+     * @return IFindOneForm
+     */
+    public function getFindOneForm(): IFindOneForm;
 }

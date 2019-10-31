@@ -12,7 +12,7 @@ use Exception;
 class BaseObject implements IBaseObject
 {
     /**
-     * Базой конструктор.
+     * Базовый конструктор.
      *
      * @param array $config Конфигурация для конструктора.
      *

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\forms\todo;
 
 use App\forms\todo\traits\WithAttributeTrait;
+use App\traits\WithUserComponent;
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;
 use Core\query\traits\WithQueryTrait;
@@ -18,6 +19,7 @@ class CreateOneForm extends BaseForm implements IForm
 {
     use WithAttributeTrait;
     use WithQueryTrait;
+    use WithUserComponent;
 
     /**
      * Метод реализует основное действие формы.
@@ -44,12 +46,17 @@ class CreateOneForm extends BaseForm implements IForm
      * Метод возвращает данные для добавления в БД.
      *
      * @return array
+     *
+     * @throws Exception Если компонент не зарегистирован.
      */
     protected function getInsertData(): array
     {
+        $user = $this->getUserComponent()->getCurrentUser();
+
         return [
             'name'        => $this->getName(),
             'isCompleted' => $this->getIsCompleted(),
+            'userId'      => isset($user['id']) ? (int)$user['id'] : null,
         ];
     }
 }

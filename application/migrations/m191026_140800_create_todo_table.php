@@ -18,7 +18,8 @@ class m191026_140800_create_todo_table extends AbstractMigrationModel
         $query = 'create table `todo` (
             `id` int primary key auto_increment,
             `name` varchar(255) not null,
-            `isCompleted` boolean not null
+            `isCompleted` boolean not null,
+            `userId` int not null
         )';
 
         $connection->execute($query);
