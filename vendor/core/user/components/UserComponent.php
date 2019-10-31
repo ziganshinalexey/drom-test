@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace Core\user\components;
 
-use App\interfaces\user\forms\IFindOneForm;
-use App\interfaces\user\IComponent;
-use App\interfaces\user\IFactory;
+use Core\user\interfaces\forms\IFindOneForm;
+use Core\user\interfaces\IComponent;
+use Core\user\interfaces\IFactory;
 use Core\BaseObject;
 use Core\factory\traits\WithFactoryTrait;
 use Core\form\interfaces\IForm;

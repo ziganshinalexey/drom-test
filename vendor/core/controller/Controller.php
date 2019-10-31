@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Core\controller;
 
-use App\traits\WithUserComponent;
+use Core\user\traits\WithUserComponent;
 use Core\BaseObject;
 use Core\controller\interfaces\IController;
 use Core\request\traits\web\WithRequestComponent;

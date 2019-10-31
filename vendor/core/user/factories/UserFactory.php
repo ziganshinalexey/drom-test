@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Core\user\factories;
 
-use App\interfaces\user\forms\IFindOneForm;
-use App\interfaces\user\IFactory;
+use Core\user\interfaces\forms\IFindOneForm;
+use Core\user\interfaces\IFactory;
 use Core\factory\Factory;
 use Core\form\interfaces\IForm;
 use Exception;

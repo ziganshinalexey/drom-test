@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 namespace App\forms\todo;
 
-use App\traits\WithUserComponent;
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;
 use Core\query\traits\WithQueryTrait;
 use Core\result\interfaces\IDataResult;
+use Core\user\traits\WithUserComponent;
 use Exception;
 
 /**
@@ -33,7 +33,7 @@ class RemoveManyForm extends BaseForm implements IForm
         $userId       = $this->getUserComponent()->getCurrentUser()['id'] ?? null;
         $removeResult = $this->getQuery()->delete([
             'isCompleted' => true,
-            'userId' => $userId,
+            'userId'      => $userId,
         ]);
         $result->setData($removeResult->getData());
 

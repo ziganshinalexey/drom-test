@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Core\user\forms;
 
-use App\interfaces\user\forms\IFindOneForm;
+use Core\user\interfaces\forms\IFindOneForm;
 use Core\form\BaseForm;
 use Core\query\traits\WithQueryTrait;
 use Core\result\interfaces\IDataResult;
