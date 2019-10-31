@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\controllers;
+namespace Core\user\controllers;
 
 use Core\controller\Controller;
 use Core\request\traits\web\WithRequestComponent;

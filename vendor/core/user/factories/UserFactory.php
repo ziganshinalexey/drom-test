@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\factories;
+namespace Core\user\factories;
 
 use App\interfaces\user\forms\IFindOneForm;
 use App\interfaces\user\IFactory;

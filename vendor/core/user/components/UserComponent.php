@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\components;
+namespace Core\user\components;
 
 use App\interfaces\user\forms\IFindOneForm;
 use App\interfaces\user\IComponent;
@@ -15,8 +15,6 @@ use Exception;
 
 /**
  * Класс UserComponent реализует методы работы с пользователями.
- *
- * @todo: Убрать компонент в вендор.
  */
 class UserComponent extends BaseObject implements IComponent
 {

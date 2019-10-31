@@ -3,20 +3,14 @@
 declare(strict_types = 1);
 
 use App\components\TodoComponent;
-use App\components\UserComponent;
 use App\controllers\TodoController;
-use App\controllers\UserController;
 use App\factories\TodoFactory;
-use App\factories\UserFactory;
 use App\forms\todo\CreateOneForm as TodoCreateOneForm;
 use App\forms\todo\FindManyForm as TodoFindManyForm;
 use App\forms\todo\RemoveManyForm as TodoRemoveManyForm;
 use App\forms\todo\RemoveOneForm as TodoRemoveOneForm;
 use App\forms\todo\UpdateManyForm as TodoUpdateManyForm;
 use App\forms\todo\UpdateOneForm as TodoUpdateOneForm;
-use App\forms\user\CreateOneForm as UserCreateOneForm;
-use App\forms\user\FindOneForm as UserFindOneForm;
-use App\forms\user\LoginForm as UserLoginForm;
 use Core\application\components\web\Application;
 use Core\db\components\DataBase;
 use Core\db\factories\Factory as DBFactory;
@@ -27,6 +21,12 @@ use Core\request\parsers\JsonParser;
 use Core\response\components\Response;
 use Core\result\DataResult;
 use Core\route\components\Route;
+use Core\user\components\UserComponent;
+use Core\user\controllers\UserController;
+use Core\user\factories\UserFactory;
+use Core\user\forms\CreateOneForm as UserCreateOneForm;
+use Core\user\forms\FindOneForm as UserFindOneForm;
+use Core\user\forms\LoginForm as UserLoginForm;
 
 $appDirectory = dirname(__FILE__, 2);
 

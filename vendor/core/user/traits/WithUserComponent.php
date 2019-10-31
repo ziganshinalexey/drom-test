@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace App\traits;
+namespace Core\user\traits;
 
-use App\interfaces\user\IComponent;
+use Core\user\interfaces\IComponent;
 use Core\Core;
 use Exception;
 

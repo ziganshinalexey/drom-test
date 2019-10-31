@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\forms\user;
+namespace Core\user\forms;
 
 use App\interfaces\user\forms\IFindOneForm;
 use Core\form\BaseForm;

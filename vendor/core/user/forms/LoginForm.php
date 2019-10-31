@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\forms\user;
+namespace Core\user\forms;
 
 use Core\form\BaseForm;
 use Core\form\interfaces\IForm;

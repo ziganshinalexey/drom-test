@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace App\interfaces\user;
+namespace Core\user\interfaces;
 
-use App\interfaces\user\forms\IFindOneForm;
+use Core\user\interfaces\forms\IFindOneForm;
 use Core\application\interfaces\IComponent as IBaseComponent;
 use Core\form\interfaces\IForm;
 use Core\IBaseObject;
