@@ -53,6 +53,6 @@
 </footer>
 <script src="/assets/jquery/jquery.min.js"></script>
 <script src="/assets/todomvc-common/base.js"></script>
-<script src="/assets/application/js/app.js"></script>
+<script src="/assets/application/js/todo.js"></script>
 </body>
 </html>

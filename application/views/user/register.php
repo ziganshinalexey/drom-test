@@ -12,7 +12,7 @@
 <body>
 <section class="todoapp">
     <h1>Sign Up</h1>
-    <form action="/user/register" method="post" class="form">
+    <form id="register-form" action="/user/register" method="post" class="form">
         <input name="login" class="edit" placeholder="Login" autofocus>
         <input name="password" class="edit" type="password" placeholder="Password">
         <input name="firstName" class="edit" placeholder="First name">
@@ -24,5 +24,7 @@
     <p><a href="/user/login">Sign In</a></p>
     <p>Created by <a href="https://vk.com/alexey_ziganshin">Ziganshin Alexey</a></p>
 </footer>
+<script src="/assets/jquery/jquery.min.js"></script>
+<script src="/assets/application/js/register.js"></script>
 </body>
 </html>

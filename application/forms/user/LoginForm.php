@@ -38,7 +38,56 @@ class LoginForm extends BaseForm implements IForm
      */
     public function run(): IDataResult
     {
+        if (! $this->validate()) {
+            return $this->getResult();
+        }
 
+        $data = $this->getQuery()->all(['login' => $this->getLogin()])->getData();
+        $user = array_shift($data);
+
+        return $this->getResult()->setData($user);
+    }
+
+    /**
+     * Метод валидации формы.
+     *
+     * @return bool
+     *
+     * @throws Exception
+     */
+    protected function validate(): bool
+    {
+        if (empty($this->getLogin())) {
+            $this->getResult()->addError('Логин не может быть пустым.');
+        }
+
+        if (empty($this->getPassword())) {
+            $this->getResult()->addError('Пароль не может быть пустым.');
+        }
+
+        $loginLength = mb_strlen($this->getLogin(), 'utf-8');
+        if (6 > $loginLength || 255 < $loginLength) {
+            $this->getResult()->addError('Логин должен быть более 6 и менее 255 символов.');
+        }
+
+        $passwordLength = mb_strlen($this->getPassword(), 'utf-8');
+        if (6 > $passwordLength || 255 < $passwordLength) {
+            $this->getResult()->addError('Пароль должен быть более 6 и менее 255 символов.');
+        }
+
+        if (! $this->getResult()->isSuccess()) {
+            return false;
+        }
+
+        $data     = $this->getQuery()->all(['login' => $this->getLogin()])->getData();
+        $user     = array_shift($data);
+        $password = $user['password'] ?? null;
+
+        if (null === $user || null === $password || $password !== $this->getPassword()) {
+            $this->getResult()->addError('Неверный логин или пароль.');
+        }
+
+        return $this->getResult()->isSuccess();
     }
 
     /**

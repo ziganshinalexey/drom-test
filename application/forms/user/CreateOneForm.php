@@ -52,16 +52,53 @@ class CreateOneForm extends BaseForm implements IForm
      */
     public function run(): IDataResult
     {
-        $result = $this->getResult();
+        if (! $this->validate()) {
+            return $this->getResult();
+        }
 
         $data         = $this->getInsertData();
         $insertResult = $this->getQuery()->insert($data);
 
         $id         = (int)$insertResult->getData()['id'] ?? null;
         $data['id'] = $id;
-        $result->setData($data);
+        $this->getResult()->setData($data);
 
-        return $result;
+        return $this->getResult();
+    }
+
+    /**
+     * Метод валидации формы.
+     *
+     * @return bool
+     *
+     * @throws Exception
+     */
+    protected function validate(): bool
+    {
+        if (empty($this->getLogin())) {
+            $this->getResult()->addError('Логин не может быть пустым.');
+        }
+
+        if (empty($this->getPassword())) {
+            $this->getResult()->addError('Пароль не может быть пустым.');
+        }
+
+        $loginLength = mb_strlen($this->getLogin(), 'utf-8');
+        if (6 > $loginLength || 255 < $loginLength) {
+            $this->getResult()->addError('Логин должен быть более 6 и менее 255 символов.');
+        }
+
+        $passwordLength = mb_strlen($this->getPassword(), 'utf-8');
+        if (6 > $passwordLength || 255 < $passwordLength) {
+            $this->getResult()->addError('Пароль должен быть более 6 и менее 255 символов.');
+        }
+
+        $result = $this->getQuery()->all(['login' => $this->getLogin()]);
+        if (! empty($result->getData())) {
+            $this->getResult()->addError('Пользователь с таким логином уже существует.');
+        }
+
+        return empty($this->getResult()->getErrorList());
     }
 
     /**

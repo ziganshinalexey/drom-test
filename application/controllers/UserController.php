@@ -21,21 +21,11 @@ class UserController extends Controller
      * Метод реализует действие логина.
      *
      * @throws Exception
+     *
+     * @return void
      */
     public function actionLogin(): void
     {
-        $post = $this->getRequestComponent()->post();
-        if (! empty($post)) {
-            $form = $this->getUserComponent()->login();
-
-            $form->load($post);
-            $form->run();
-
-            $this->redirect('/user/login');
-
-            return;
-        }
-
         $this->render('login');
     }
 
@@ -43,21 +33,69 @@ class UserController extends Controller
      * Метод реализует действие регистрации.
      *
      * @throws Exception
+     *
+     * @return void
      */
     public function actionRegister(): void
     {
-        $post = $this->getRequestComponent()->post();
-        if (! empty($post)) {
-            $form = $this->getUserComponent()->createOne();
+        $this->render('register');
+    }
 
-            $form->load($post);
-            $form->run();
+    /**
+     * Метод сохраняет данные пользователя.
+     *
+     * @throws Exception
+     *
+     * @return void
+     */
+    public function actionCreate(): void
+    {
+        $form = $this->getUserComponent()->createOne();
 
-            $this->redirect('/user/login');
+        $form->load($this->getRequestComponent()->post());
+        $result = $form->run();
+
+        if ($result->isSuccess()) {
+            $this->renderJson([
+                'data'   => ['success' => true],
+                'errors' => [],
+            ]);
 
             return;
         }
 
-        $this->render('register');
+        $this->renderJson([
+            'data'   => [],
+            'errors' => $result->getErrorList(),
+        ]);
+    }
+
+    /**
+     * Метод возвращает ключ доступа.
+     *
+     * @throws Exception
+     *
+     * @return void
+     */
+    public function actionAuth(): void
+    {
+        $form = $this->getUserComponent()->login();
+
+        $form->load($this->getRequestComponent()->post());
+        $result = $form->run();
+
+        if ($result->isSuccess()) {
+            $this->renderJson([
+                'data'   => ['accessToken' => $result->getData()['accessToken'] ?? null],
+                'errors' => [],
+            ]);
+
+            return;
+        }
+
+        $this->renderJson([
+            'data'   => [],
+            'errors' => $result->getErrorList(),
+        ]);
     }
 }

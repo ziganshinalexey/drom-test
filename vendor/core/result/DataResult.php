@@ -60,7 +60,7 @@ class DataResult extends BaseObject implements IDataResult
      */
     public function addError(string $description, string $name = 'system'): IDataResult
     {
-        $this->errorList = [$name => $description];
+        $this->errorList[] = [$name => $description];
 
         return $this;
     }

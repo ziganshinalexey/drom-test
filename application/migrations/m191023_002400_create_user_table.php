@@ -20,8 +20,8 @@ class m191023_002400_create_user_table extends AbstractMigrationModel
             `login` varchar(50) not null unique ,
             `password` varchar(50) not null,
             `accessToken` varchar(32) not null,
-            `firstName` varchar(50) not null,
-            `lastName` varchar(50) not null
+            `firstName` varchar(50),
+            `lastName` varchar(50)
         )';
 
         $connection->execute($query);
