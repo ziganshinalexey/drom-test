@@ -1,5 +1,5 @@
 (function (jquery) {
-    jquery('#register-form').on('submit', function (event) {
+    jquery('#login-form').on('submit', function (event) {
         event.preventDefault();
         const $form = jquery(this);
 
@@ -20,6 +20,7 @@
                 });
                 alert(message);
             } else {
+                localStorage.accessToken = response.data.accessToken;
                 window.location.href = '/todo/index';
             }
         });
