@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\controllers;
 
 use App\traits\WithUserComponent;
@@ -16,17 +18,29 @@ class UserController extends Controller
     use WithUserComponent;
 
     /**
-     * ### Тут необходимо описать делает данная функция. ###
+     * Метод реализует действие логина.
      *
      * @throws Exception
      */
     public function actionLogin(): void
     {
+        $post = $this->getRequestComponent()->post();
+        if (! empty($post)) {
+            $form = $this->getUserComponent()->login();
+
+            $form->load($post);
+            $form->run();
+
+            $this->redirect('/user/login');
+
+            return;
+        }
+
         $this->render('login');
     }
 
     /**
-     * ### Тут необходимо описать делает данная функция. ###
+     * Метод реализует действие регистрации.
      *
      * @throws Exception
      */
