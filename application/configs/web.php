@@ -28,7 +28,8 @@ use Core\user\forms\CreateOneForm as UserCreateOneForm;
 use Core\user\forms\FindOneForm as UserFindOneForm;
 use Core\user\forms\LoginForm as UserLoginForm;
 
-$appDirectory = dirname(__FILE__, 2);
+$appDirectory    = dirname(__FILE__, 2);
+$vendorDirectory = dirname(__FILE__, 3) . '/vendor';
 
 return [
     'class'         => Application::class,
@@ -52,8 +53,8 @@ return [
                 'user' => [
                     'class'   => UserController::class,
                     'viewMap' => [
-                        'login'    => $appDirectory . '/views/user/login.php',
-                        'register' => $appDirectory . '/views/user/register.php',
+                        'login'    => $vendorDirectory . '/core/user/views/user/login.php',
+                        'register' => $vendorDirectory . '/core/user/views/user/register.php',
                     ],
                 ],
             ],
